@@ -13,28 +13,27 @@ interface ToolIconProps {
 }
 
 const sizeMap = {
-  sm: { img: 20, label: 'text-xs', gap: 'gap-1',   padding: 'px-2 py-1'    },
-  md: { img: 28, label: 'text-xs', gap: 'gap-1.5', padding: 'px-2.5 py-1.5' },
-  lg: { img: 36, label: 'text-sm', gap: 'gap-2',   padding: 'px-3 py-2'    },
+  sm: { img: 18, box: 'w-8 h-8',   label: 'text-[11px]', gap: 'gap-1.5' },
+  md: { img: 22, box: 'w-11 h-11', label: 'text-xs',     gap: 'gap-2'   },
+  lg: { img: 28, box: 'w-14 h-14', label: 'text-sm',     gap: 'gap-2'   },
 };
 
 export function ToolIcon({ tool, size = 'md', showLabel = true, className }: ToolIconProps) {
-  const { img, label, gap, padding } = sizeMap[size];
+  const { img, box, label, gap } = sizeMap[size];
   const [imgError, setImgError] = useState(false);
 
+  // Text-only pill fallback (no icon URL / explicit text / failed load)
   if (tool.iconType === 'text' || !tool.iconUrl || imgError) {
     return (
       <span
         className={cn(
-          'inline-flex items-center justify-center rounded-md font-mono font-semibold text-xs whitespace-nowrap',
-          'border border-[var(--color-border)] bg-[var(--color-card)]',
-          'text-[var(--color-text-muted)] hover:text-[var(--color-text)]',
-          'transition-colors duration-150',
-          padding,
+          'inline-flex items-center rounded-lg font-mono font-semibold text-[11px] whitespace-nowrap px-2.5 py-1.5',
+          'border border-[var(--color-border)] bg-white/[0.03] backdrop-blur-sm',
+          'text-[var(--color-text)] hover:border-primary-400/60 transition-colors duration-200',
           className,
         )}
         title={tool.name}
-        style={{ borderLeftColor: tool.color ?? undefined }}
+        style={{ boxShadow: tool.color ? `inset 3px 0 0 0 ${tool.color}` : undefined }}
       >
         {tool.name}
       </span>
@@ -42,15 +41,15 @@ export function ToolIcon({ tool, size = 'md', showLabel = true, className }: Too
   }
 
   return (
-    <div
-      className={cn(
-        'flex flex-col items-center',
-        showLabel ? gap : '',
-        className,
-      )}
-      title={tool.name}
-    >
-      <div className="relative flex items-center justify-center p-1.5 rounded-md bg-[var(--color-card)] border border-[var(--color-border)] hover:border-primary-200 dark:hover:border-primary-800 transition-all duration-150">
+    <div className={cn('group/tool flex flex-col items-center', showLabel && gap, className)} title={tool.name}>
+      <div
+        className={cn(
+          'relative flex items-center justify-center rounded-xl p-2',
+          'border border-[var(--color-border)] bg-white/[0.03] backdrop-blur-sm',
+          'transition-all duration-200 group-hover/tool:-translate-y-1 group-hover/tool:border-primary-400/60 group-hover/tool:shadow-glow-mint',
+          box,
+        )}
+      >
         <Image
           src={tool.iconUrl}
           alt={`${tool.name} logo`}
@@ -62,9 +61,7 @@ export function ToolIcon({ tool, size = 'md', showLabel = true, className }: Too
         />
       </div>
       {showLabel && (
-        <span className={cn('text-center text-[var(--color-text-muted)]', label)}>
-          {tool.name}
-        </span>
+        <span className={cn('text-center text-[var(--color-text-muted)]', label)}>{tool.name}</span>
       )}
     </div>
   );

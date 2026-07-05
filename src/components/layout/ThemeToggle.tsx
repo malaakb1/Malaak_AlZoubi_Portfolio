@@ -3,7 +3,7 @@
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { Sun, Moon } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -12,31 +12,31 @@ export function ThemeToggle() {
   useEffect(() => setMounted(true), []);
 
   if (!mounted) {
-    return (
-      <div className="w-9 h-9 rounded-full bg-warm-100 dark:bg-warm-800 animate-pulse" />
-    );
+    return <div className="w-10 h-10 rounded-xl border border-[var(--color-border)] bg-white/[0.03] animate-pulse" />;
   }
+
+  const isDark = theme === 'dark';
 
   return (
     <motion.button
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-      className={`
-        w-9 h-9 flex items-center justify-center rounded-full
-        border border-warm-200 dark:border-warm-700
-        bg-warm-50 dark:bg-warm-800/50
-        text-warm-600 dark:text-warm-300
-        hover:bg-warm-100 dark:hover:bg-warm-700
-        transition-all duration-200
-      `}
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
+      whileHover={{ scale: 1.06 }}
+      whileTap={{ scale: 0.94 }}
+      aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      className="relative w-10 h-10 flex items-center justify-center rounded-xl overflow-hidden border border-[var(--color-border)] bg-white/[0.03] text-[var(--color-text)] hover:border-primary-400/60 hover:text-primary-400 transition-colors"
     >
-      {theme === 'dark' ? (
-        <Sun className="w-4 h-4" />
-      ) : (
-        <Moon className="w-4 h-4" />
-      )}
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.span
+          key={isDark ? 'sun' : 'moon'}
+          initial={{ y: 14, opacity: 0, rotate: -30 }}
+          animate={{ y: 0, opacity: 1, rotate: 0 }}
+          exit={{ y: -14, opacity: 0, rotate: 30 }}
+          transition={{ duration: 0.22 }}
+          className="absolute"
+        >
+          {isDark ? <Sun className="w-[18px] h-[18px]" /> : <Moon className="w-[18px] h-[18px]" />}
+        </motion.span>
+      </AnimatePresence>
     </motion.button>
   );
 }

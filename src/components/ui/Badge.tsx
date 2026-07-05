@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 
 interface BadgeProps {
   children: React.ReactNode;
-  variant?: 'default' | 'primary' | 'secondary' | 'outline';
+  variant?: 'default' | 'primary' | 'secondary' | 'gold' | 'outline';
   className?: string;
 }
 
@@ -10,11 +10,17 @@ export function Badge({ children, variant = 'default', className }: BadgeProps) 
   return (
     <span
       className={cn(
-        'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
-        variant === 'default'   && 'bg-[var(--color-bg-2)] text-[var(--color-text-muted)] border border-[var(--color-border)]',
-        variant === 'primary'   && 'bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300',
-        variant === 'secondary' && 'bg-lavender-100 text-lavender-700 dark:bg-lavender-900/30 dark:text-lavender-300',
-        variant === 'outline'   && 'border border-[var(--color-border)] text-[var(--color-text-muted)]',
+        'inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium transition-colors',
+        variant === 'default' &&
+          'bg-white/[0.04] text-[var(--color-text-muted)] border border-[var(--color-border)]',
+        variant === 'primary' &&
+          'bg-primary-500/12 text-primary-300 border border-primary-500/30',
+        variant === 'secondary' &&
+          'bg-magenta-500/12 text-magenta-300 border border-magenta-500/30',
+        variant === 'gold' &&
+          'bg-gold-500/12 text-gold-300 border border-gold-500/30',
+        variant === 'outline' &&
+          'border border-[var(--color-border)] text-[var(--color-text-muted)]',
         className,
       )}
     >

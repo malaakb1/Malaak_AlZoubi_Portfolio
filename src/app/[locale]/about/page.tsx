@@ -32,38 +32,66 @@ export default async function AboutPage({ params }: Props) {
   return (
     <div className="min-h-screen pt-20 pb-20">
       {/* Header */}
-      <div className="relative bg-[var(--color-bg-2)] border-b border-[var(--color-border)] overflow-hidden">
+      <header className="relative overflow-hidden border-b border-[var(--color-border)]">
         <div className="absolute inset-0 bg-grid" aria-hidden="true" />
         <div
+          className="blob blob-purple w-[34rem] h-[34rem] -top-44 -start-32 animate-aurora"
+          aria-hidden="true"
+        />
+        <div
+          className="blob blob-pink w-[26rem] h-[26rem] -bottom-40 end-0 animate-aurora"
+          style={{ animationDelay: '4s' }}
+          aria-hidden="true"
+        />
+
+        <div
           className={cn(
-            'relative max-w-6xl mx-auto px-4 sm:px-6 py-16',
+            'relative max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20',
             isRTL && 'text-right',
           )}
         >
           <div className={cn('flex items-start gap-6', isRTL && 'flex-row-reverse')}>
-            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden bg-gradient-to-b from-primary-100 to-lavender-100 dark:from-primary-900/30 dark:to-lavender-900/30 flex-shrink-0 shadow-glow">
-              <Image
-                src="/images/avatar-removebg-preview.png"
-                alt="Malaak Al Zoubi"
-                width={192}
-                height={192}
-                className="w-full h-full object-cover object-top"
-                priority
+            {/* Avatar with gradient ring + glow */}
+            <div className="relative flex-shrink-0">
+              <div
+                className="absolute -inset-1 rounded-full bg-gradient-brand opacity-70 blur-[6px] animate-pulse-soft"
+                aria-hidden="true"
               />
+              <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full p-[2px] bg-gradient-brand">
+                <div className="w-full h-full rounded-full overflow-hidden bg-ink-900">
+                  <Image
+                    src="/images/avatar-removebg-preview.png"
+                    alt="Malaak Al Zoubi"
+                    width={192}
+                    height={192}
+                    className="w-full h-full object-cover object-top"
+                    priority
+                  />
+                </div>
+              </div>
             </div>
+
             <div>
-              <h1 className="text-4xl sm:text-5xl font-serif mb-2">{t('title')}</h1>
-              <p className="text-[var(--color-text-muted)] text-lg max-w-2xl">{t('subtitle')}</p>
-              <div className={cn('flex items-center gap-2 mt-3 text-sm text-[var(--color-text-muted)]', isRTL && 'flex-row-reverse justify-end')}>
+              <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-primary-400 mb-3">
+                <span className="h-px w-6 bg-gradient-to-r from-primary-400 to-transparent" aria-hidden="true" />
+                {isRTL ? 'نبذة' : 'Profile'}
+              </span>
+              <h1 className="text-4xl sm:text-5xl font-serif font-bold tracking-tight mb-2">
+                {t('title')}
+              </h1>
+              <p className="text-[var(--color-text-muted)] text-lg max-w-2xl leading-relaxed">
+                {t('subtitle')}
+              </p>
+              <div className={cn('flex items-center gap-2 mt-4 text-sm text-[var(--color-text-muted)]', isRTL && 'flex-row-reverse justify-end')}>
                 <MapPin className="w-4 h-4 text-primary-400 flex-shrink-0" aria-hidden="true" />
                 <span>{t('location')}</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </header>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-12 space-y-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-14 space-y-16">
 
         {/* Bio */}
         <section aria-labelledby="bio-section">
@@ -71,13 +99,13 @@ export default async function AboutPage({ params }: Props) {
             <p>{t('bio1')}</p>
             <p>{t('bio2')}</p>
           </div>
-          <div className="mt-6">
+          <div className={cn('mt-8', isRTL && 'flex justify-end')}>
             <a
               href="/cv/malaak-cv.pdf"
               download
               className={cn(
                 'inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm',
-                'bg-primary-500 hover:bg-primary-600 text-white shadow-soft hover:shadow-glow transition-all duration-200',
+                'bg-primary-500 text-ink-950 hover:bg-primary-400 hover:shadow-glow-mint transition-all duration-200',
                 isRTL && 'flex-row-reverse',
               )}
             >
@@ -92,25 +120,31 @@ export default async function AboutPage({ params }: Props) {
 
         {/* Education */}
         <section aria-labelledby="education-title">
-          <h2
-            id="education-title"
-            className={cn('text-2xl font-serif mb-6', isRTL && 'text-right')}
-          >
-            {t('education.title')}
-          </h2>
-          <div className={cn('flex gap-4', isRTL && 'flex-row-reverse')}>
+          <div className={cn('mb-6', isRTL && 'text-right')}>
+            <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-primary-400 mb-3">
+              <span className="h-px w-6 bg-gradient-to-r from-primary-400 to-transparent" aria-hidden="true" />
+              {isRTL ? 'الأكاديمية' : 'Academic'}
+            </span>
+            <h2
+              id="education-title"
+              className="text-2xl sm:text-3xl font-serif font-bold tracking-tight"
+            >
+              {t('education.title')}
+            </h2>
+          </div>
+          <div className={cn('card p-6 flex gap-4', isRTL && 'flex-row-reverse')}>
             <div
-              className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0"
+              className="w-11 h-11 rounded-full bg-gold-500/12 text-gold-300 ring-1 ring-gold-500/40 shadow-glow-gold flex items-center justify-center flex-shrink-0"
               aria-hidden="true"
             >
               <GraduationCap className="w-5 h-5" />
             </div>
             <div className={cn(isRTL && 'text-right')}>
               <p className="font-semibold text-[var(--color-text)]">{t('education.degree')}</p>
-              <p className="text-primary-600 dark:text-primary-400 font-medium text-sm mt-0.5">
+              <p className="text-primary-400 font-medium text-sm mt-0.5">
                 {t('education.institution')}
               </p>
-              <p className="text-sm font-semibold text-emerald-600 dark:text-emerald-400 mt-1">{t('education.grade')}</p>
+              <p className="text-sm font-semibold text-gold-300 mt-1">{t('education.grade')}</p>
               <p className="text-xs text-[var(--color-text-muted)] mt-1">{t('education.note')}</p>
             </div>
           </div>
@@ -120,17 +154,23 @@ export default async function AboutPage({ params }: Props) {
         <div className="grid sm:grid-cols-2 gap-10">
           {/* Languages */}
           <section aria-labelledby="languages-title">
-            <h2
-              id="languages-title"
-              className={cn('text-2xl font-serif mb-5', isRTL && 'text-right')}
-            >
-              {t('languages.title')}
-            </h2>
+            <div className={cn('mb-5', isRTL && 'text-right')}>
+              <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-primary-400 mb-3">
+                <span className="h-px w-6 bg-gradient-to-r from-primary-400 to-transparent" aria-hidden="true" />
+                {isRTL ? 'التواصل' : 'Fluency'}
+              </span>
+              <h2
+                id="languages-title"
+                className="text-2xl sm:text-3xl font-serif font-bold tracking-tight"
+              >
+                {t('languages.title')}
+              </h2>
+            </div>
             <ul className="space-y-3">
               {languageItems.map(({ language, level }) => (
                 <li
                   key={language}
-                  className={cn('flex items-center gap-3', isRTL && 'flex-row-reverse')}
+                  className={cn('card p-4 flex items-center gap-3', isRTL && 'flex-row-reverse')}
                 >
                   <Globe className="w-4 h-4 text-primary-400 flex-shrink-0" aria-hidden="true" />
                   <div className={cn(isRTL && 'text-right')}>
@@ -144,23 +184,29 @@ export default async function AboutPage({ params }: Props) {
 
           {/* Soft skills */}
           <section aria-labelledby="soft-skills-title">
-            <h2
-              id="soft-skills-title"
-              className={cn('text-2xl font-serif mb-5', isRTL && 'text-right')}
-            >
-              {t('softSkills.title')}
-            </h2>
+            <div className={cn('mb-5', isRTL && 'text-right')}>
+              <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-magenta-400 mb-3">
+                <span className="h-px w-6 bg-gradient-to-r from-magenta-400 to-transparent" aria-hidden="true" />
+                {isRTL ? 'الشخصية' : 'Human'}
+              </span>
+              <h2
+                id="soft-skills-title"
+                className="text-2xl sm:text-3xl font-serif font-bold tracking-tight"
+              >
+                {t('softSkills.title')}
+              </h2>
+            </div>
             <div className={cn('flex flex-wrap gap-2', isRTL && 'flex-row-reverse')}>
               {softSkillItems.map((skill) => (
                 <span
                   key={skill}
                   className={cn(
                     'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium',
-                    'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300',
-                    'border border-primary-200 dark:border-primary-800',
+                    'border border-[var(--color-border)] bg-white/[0.03] text-[var(--color-text)]',
+                    'hover:border-magenta-400/60 hover:text-magenta-300 transition-colors',
                   )}
                 >
-                  <Heart className="w-3 h-3" aria-hidden="true" />
+                  <Heart className="w-3 h-3 text-magenta-400" aria-hidden="true" />
                   {skill}
                 </span>
               ))}

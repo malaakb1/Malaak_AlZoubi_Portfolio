@@ -14,14 +14,15 @@ export function isRTL(locale: Locale): boolean {
   return locale === 'ar';
 }
 
+// Category chips — translucent accent-on-dark for the cyber palette.
 export const categoryColors: Record<string, string> = {
-  genai:   'bg-primary-100 text-primary-700 dark:bg-primary-900/40 dark:text-primary-300',
-  nlp:     'bg-lavender-100 text-lavender-700 dark:bg-lavender-900/40 dark:text-lavender-300',
-  cv:      'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300',
-  data:    'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300',
-  mlops:   'bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300',
-  webapi:  'bg-cyan-100 text-cyan-700 dark:bg-cyan-900/40 dark:text-cyan-300',
-  product: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300',
+  genai:   'bg-primary-500/12 text-primary-300 border border-primary-500/30',
+  nlp:     'bg-magenta-500/12 text-magenta-300 border border-magenta-500/30',
+  cv:      'bg-lavender-400/15 text-lavender-200 border border-lavender-400/30',
+  data:    'bg-gold-500/12 text-gold-300 border border-gold-500/30',
+  mlops:   'bg-primary-500/12 text-primary-300 border border-primary-500/30',
+  webapi:  'bg-magenta-500/12 text-magenta-300 border border-magenta-500/30',
+  product: 'bg-gold-500/12 text-gold-300 border border-gold-500/30',
 };
 
 export const categoryLabels: Record<string, BilingualString> = {

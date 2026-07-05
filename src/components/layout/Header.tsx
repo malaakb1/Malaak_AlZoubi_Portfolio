@@ -1,12 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Download } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { cn } from '@/lib/utils';
 import type { Locale } from '@/types';
@@ -18,12 +17,12 @@ interface HeaderProps {
 type NavKey = 'home' | 'projects' | 'dashboards' | 'certificates' | 'about' | 'contact';
 
 const navLinks: Array<{ key: NavKey; href: string }> = [
-  { key: 'home',          href: '/'              },
-  { key: 'projects',      href: '/projects'      },
-  { key: 'dashboards',    href: '/dashboards'    },
-  { key: 'certificates',  href: '/certificates'  },
-  { key: 'about',         href: '/about'         },
-  { key: 'contact',       href: '/contact'       },
+  { key: 'home',         href: '/'             },
+  { key: 'projects',     href: '/projects'     },
+  { key: 'dashboards',   href: '/dashboards'   },
+  { key: 'certificates', href: '/certificates' },
+  { key: 'about',        href: '/about'        },
+  { key: 'contact',      href: '/contact'      },
 ];
 
 export function Header({ locale }: HeaderProps) {
@@ -34,12 +33,12 @@ export function Header({ locale }: HeaderProps) {
   const isRTL = locale === 'ar';
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => setIsScrolled(window.scrollY > 24);
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
@@ -47,138 +46,103 @@ export function Header({ locale }: HeaderProps) {
   const isActive = (href: string) => {
     const localePath = `/${locale}${href}`;
     if (href === '/') return pathname === localePath;
-    return pathname.startsWith(localePath);
+    return pathname?.startsWith(localePath);
   };
 
   return (
-    <header
-      className={cn(
-        'fixed top-0 inset-x-0 z-50 transition-all duration-300',
-        isScrolled
-          ? 'bg-[var(--color-bg)]/90 backdrop-blur-md border-b border-[var(--color-border)] shadow-soft'
-          : 'bg-transparent',
-      )}
-    >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link
-            href={`/${locale}`}
-            className="group flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md"
-          >
-            <div className="w-8 h-8 rounded-full overflow-hidden bg-gradient-to-b from-primary-100 to-lavender-100 dark:from-primary-900/30 dark:to-lavender-900/30 flex-shrink-0 select-none">
-              <Image
-                src="/images/avatar-removebg-preview.png"
-                alt="Malaak Al Zoubi"
-                width={64}
-                height={64}
-                className="w-full h-full object-cover object-top"
-              />
-            </div>
-            <span
-              className={cn(
-                'font-serif text-lg font-medium text-[var(--color-text)] hidden sm:block',
-                isRTL && 'font-arabic',
-              )}
-            >
-              {isRTL ? 'ملاك الزعبي' : 'Malaak Al Zoubi'}
-            </span>
-          </Link>
-
-          {/* Desktop nav */}
-          <nav
-            aria-label="Primary navigation"
-            className={cn('hidden md:flex items-center gap-1', isRTL && 'flex-row-reverse')}
-          >
-            {navLinks.map(({ key, href }) => (
-              <Link
-                key={key}
-                href={`/${locale}${href}`}
-                className={cn(
-                  'relative px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200',
-                  isActive(href)
-                    ? 'text-primary-600 dark:text-primary-400'
-                    : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]',
-                )}
-              >
-                {t(key)}
-                {isActive(href) && (
-                  <motion.span
-                    layoutId="nav-underline"
-                    className="absolute bottom-0 left-2 right-2 h-0.5 rounded-full bg-primary-400"
-                  />
-                )}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Actions */}
-          <div className={cn('flex items-center gap-2', isRTL && 'flex-row-reverse')}>
-            <ThemeToggle />
-            <a
-              href="/cv/malaak-cv.pdf"
-              download
-              aria-label={t('downloadCV')}
-              className={cn(
-                'hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold transition-all duration-200',
-                'bg-primary-500 hover:bg-primary-600 text-white shadow-soft hover:shadow-glow',
-              )}
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span className="hidden lg:inline">{t('downloadCV')}</span>
-            </a>
-
-            {/* Mobile hamburger */}
-            <button
-              aria-label={mobileOpen ? t('closeMenu') : t('openMenu')}
-              aria-expanded={mobileOpen}
-              onClick={() => setMobileOpen((v) => !v)}
-              className="md:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-text)]"
-            >
-              {mobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden border-t border-[var(--color-border)] bg-[var(--color-bg)]/95 backdrop-blur-md"
-          >
-            <nav className="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-1">
-              {navLinks.map(({ key, href }) => (
+    <header className="fixed top-0 inset-x-0 z-50 flex justify-center px-3 pt-3 sm:pt-4">
+      <motion.div
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className={cn(
+          'relative rounded-full transition-all duration-300',
+          isScrolled ? 'glass border border-[var(--color-border)] shadow-card' : 'glass border border-[var(--color-border)]/60',
+        )}
+      >
+        <div className="flex items-center gap-1 h-12 sm:h-14 px-2 sm:px-2.5">
+          {/* Desktop nav pill */}
+          <nav aria-label="Primary navigation" className="hidden md:flex items-center gap-0.5">
+            {navLinks.map(({ key, href }) => {
+              const active = isActive(href);
+              return (
                 <Link
                   key={key}
                   href={`/${locale}${href}`}
                   className={cn(
-                    'px-4 py-3 rounded-lg text-sm font-medium transition-colors',
-                    isActive(href)
-                      ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400'
-                      : 'text-[var(--color-text-muted)] hover:bg-[var(--color-bg-2)] hover:text-[var(--color-text)]',
-                    isRTL && 'text-right',
+                    'relative px-3.5 py-1.5 text-sm font-medium rounded-full transition-colors duration-200',
+                    active ? 'text-ink-950' : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]',
                   )}
                 >
-                  {t(key)}
+                  {active && (
+                    <motion.span
+                      layoutId="nav-pill"
+                      className="absolute inset-0 rounded-full bg-primary-500 shadow-glow-mint"
+                      transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                    />
+                  )}
+                  <span className="relative z-10">{t(key)}</span>
                 </Link>
-              ))}
-              <a
-                href="/cv/malaak-cv.pdf"
-                download
-                className="mt-2 flex items-center gap-2 px-4 py-3 rounded-lg text-sm font-semibold bg-primary-500 text-white"
-              >
-                <Download className="w-4 h-4" />
-                {t('downloadCV')}
-              </a>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              );
+            })}
+          </nav>
+
+          {/* Mobile menu button */}
+          <button
+            aria-label={mobileOpen ? t('closeMenu') : t('openMenu')}
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen((v) => !v)}
+            className="md:hidden w-10 h-10 flex items-center justify-center rounded-full text-[var(--color-text)] hover:text-primary-400 transition-colors"
+          >
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+
+          {/* Divider + theme toggle */}
+          <span className="hidden md:block w-px h-5 bg-[var(--color-border)] mx-1" aria-hidden="true" />
+          <ThemeToggle />
+        </div>
+
+        {/* Mobile dropdown */}
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -8, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.98 }}
+              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              className={cn(
+                'md:hidden absolute top-full mt-2 left-1/2 -translate-x-1/2 w-[min(92vw,340px)]',
+                'glass border border-[var(--color-border)] shadow-card rounded-2xl p-2',
+              )}
+            >
+              <nav className={cn('flex flex-col gap-1', isRTL && 'text-right')}>
+                {navLinks.map(({ key, href }, i) => (
+                  <motion.div
+                    key={key}
+                    initial={{ opacity: 0, x: isRTL ? 12 : -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.03 * i }}
+                  >
+                    <Link
+                      href={`/${locale}${href}`}
+                      className={cn(
+                        'flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-colors',
+                        isActive(href)
+                          ? 'bg-primary-500/12 text-primary-300 border border-primary-500/30'
+                          : 'text-[var(--color-text-muted)] hover:bg-white/[0.05] hover:text-[var(--color-text)]',
+                        isRTL && 'flex-row-reverse',
+                      )}
+                    >
+                      {t(key)}
+                      <ArrowUpRight className="w-4 h-4 opacity-60" aria-hidden="true" />
+                    </Link>
+                  </motion.div>
+                ))}
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
     </header>
   );
 }

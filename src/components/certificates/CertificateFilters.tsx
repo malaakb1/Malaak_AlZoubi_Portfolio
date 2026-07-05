@@ -66,7 +66,7 @@ export function CertificateFilters({ locale }: CertificateFiltersProps) {
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder={isRTL ? 'ابحث في الشهادات…' : 'Search certificates or skills…'}
           className={cn(
-            'w-full py-3 border border-[var(--color-border)] rounded-xl bg-[var(--color-card)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-primary-400 transition-shadow text-sm',
+            'w-full py-3 rounded-xl bg-white/[0.03] border border-[var(--color-border)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-shadow text-sm',
             isRTL ? 'pr-11 pl-10' : 'pl-11 pr-10',
           )}
         />
@@ -74,7 +74,7 @@ export function CertificateFilters({ locale }: CertificateFiltersProps) {
           <button
             onClick={() => setSearchQuery('')}
             className={cn(
-              'absolute top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text)]',
+              'absolute top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors',
               isRTL ? 'left-4' : 'right-4',
             )}
             aria-label="Clear search"
@@ -91,10 +91,10 @@ export function CertificateFilters({ locale }: CertificateFiltersProps) {
             key={key}
             onClick={() => setActiveCategory(key)}
             className={cn(
-              'px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 border',
+              'px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 border',
               activeCategory === key
-                ? 'bg-primary-500 text-white border-primary-500 shadow-soft'
-                : 'bg-[var(--color-card)] text-[var(--color-text-muted)] border-[var(--color-border)] hover:border-primary-300 hover:text-[var(--color-text)]',
+                ? 'bg-primary-500 text-ink-950 border-primary-500 shadow-glow-mint'
+                : 'bg-white/[0.03] text-[var(--color-text-muted)] border-[var(--color-border)] hover:border-primary-400/60 hover:text-[var(--color-text)]',
             )}
           >
             {label[locale]}
@@ -113,85 +113,97 @@ export function CertificateFilters({ locale }: CertificateFiltersProps) {
           {filtered.map((cert, i) => (
             <motion.div
               key={cert.id}
+              layout
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ delay: i * 0.06 }}
-              className="card flex flex-col group overflow-hidden"
+              transition={{ delay: i * 0.06, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              className="card group flex flex-col"
             >
+              {/* Per-certificate accent hairline */}
+              <span
+                className="absolute inset-x-0 top-0 h-[3px] z-[1] opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+                style={{ background: `linear-gradient(90deg, transparent, ${cert.color}, transparent)` }}
+                aria-hidden="true"
+              />
+
               {/* Certificate image */}
               {cert.image && (
-                <div className="relative w-full aspect-[16/10] bg-[var(--color-bg-2)] overflow-hidden">
+                <div className="relative w-full aspect-[16/10] bg-ink-800 overflow-hidden">
                   <Image
                     src={cert.image}
                     alt={cert.title[locale]}
                     fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                  <div
+                    className="absolute inset-0 bg-gradient-to-t from-ink-950/80 via-ink-950/10 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-60"
+                    aria-hidden="true"
                   />
                 </div>
               )}
 
               <div className="p-5 flex flex-col gap-3 flex-1">
-              {/* Top row */}
-              <div className={cn('flex items-start gap-3', isRTL && 'flex-row-reverse')}>
-                <div
-                  className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-transform duration-200 group-hover:scale-110"
-                  style={{ background: `${cert.color}22`, color: cert.color }}
-                  aria-hidden="true"
-                >
-                  <Award className="w-5 h-5" />
-                </div>
-                <div className={cn('flex-1 min-w-0', isRTL && 'text-right')}>
-                  <p className="font-semibold text-sm text-[var(--color-text)] leading-snug">
-                    {cert.title[locale]}
-                  </p>
-                  <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
-                    {cert.issuer}
-                  </p>
-                </div>
-                <span className="text-xs text-[var(--color-text-muted)] flex-shrink-0 font-medium">
-                  {cert.date}
-                </span>
-              </div>
-
-              {/* Skills */}
-              <div className={cn('flex flex-wrap gap-1', isRTL && 'flex-row-reverse')}>
-                {cert.skills.map((skill) => (
-                  <Badge key={skill} variant="default">{skill}</Badge>
-                ))}
-              </div>
-
-              {/* Actions */}
-              <div className={cn('flex gap-3 mt-auto pt-1', isRTL && 'flex-row-reverse')}>
-                {cert.credentialUrl && (
-                  <a
-                    href={cert.credentialUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={cn(
-                      'inline-flex items-center gap-1 text-xs font-medium text-primary-500 hover:text-primary-600 transition-colors',
-                      isRTL && 'flex-row-reverse',
-                    )}
+                {/* Top row */}
+                <div className={cn('flex items-start gap-3', isRTL && 'flex-row-reverse')}>
+                  <div
+                    className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-transform duration-200 group-hover:scale-110"
+                    style={{ background: `${cert.color}22`, color: cert.color }}
+                    aria-hidden="true"
                   >
-                    {isRTL ? 'عرض الشهادة' : 'View Credential'}
-                    <ExternalLink className="w-3 h-3" aria-hidden="true" />
-                  </a>
-                )}
-                {cert.certificateFile && (
-                  <a
-                    href={cert.certificateFile}
-                    download
-                    className={cn(
-                      'inline-flex items-center gap-1 text-xs font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors',
-                      isRTL && 'flex-row-reverse',
-                    )}
-                  >
-                    {isRTL ? 'تحميل PDF' : 'Download PDF'}
-                    <Download className="w-3 h-3" aria-hidden="true" />
-                  </a>
-                )}
-              </div>
+                    <Award className="w-5 h-5" />
+                  </div>
+                  <div className={cn('flex-1 min-w-0', isRTL && 'text-right')}>
+                    <p className="font-semibold text-sm text-[var(--color-text)] leading-snug group-hover:text-primary-300 transition-colors">
+                      {cert.title[locale]}
+                    </p>
+                    <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
+                      {cert.issuer}
+                    </p>
+                  </div>
+                  <span className="font-mono text-xs text-[var(--color-text-muted)] flex-shrink-0 font-medium">
+                    {cert.date}
+                  </span>
+                </div>
+
+                {/* Skills */}
+                <div className={cn('flex flex-wrap gap-1', isRTL && 'flex-row-reverse')}>
+                  {cert.skills.map((skill) => (
+                    <Badge key={skill} variant="default">{skill}</Badge>
+                  ))}
+                </div>
+
+                {/* Actions */}
+                <div className={cn('flex gap-4 mt-auto pt-2 border-t border-[var(--color-border)]', isRTL && 'flex-row-reverse')}>
+                  {cert.credentialUrl && (
+                    <a
+                      href={cert.credentialUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={cn(
+                        'inline-flex items-center gap-1 text-xs font-semibold text-primary-400 hover:text-primary-300 transition-colors',
+                        isRTL && 'flex-row-reverse',
+                      )}
+                    >
+                      {isRTL ? 'عرض الشهادة' : 'View Credential'}
+                      <ExternalLink className="w-3 h-3" aria-hidden="true" />
+                    </a>
+                  )}
+                  {cert.certificateFile && (
+                    <a
+                      href={cert.certificateFile}
+                      download
+                      className={cn(
+                        'inline-flex items-center gap-1 text-xs font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors',
+                        isRTL && 'flex-row-reverse',
+                      )}
+                    >
+                      {isRTL ? 'تحميل PDF' : 'Download PDF'}
+                      <Download className="w-3 h-3" aria-hidden="true" />
+                    </a>
+                  )}
+                </div>
               </div>
             </motion.div>
           ))}

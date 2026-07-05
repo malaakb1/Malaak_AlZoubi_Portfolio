@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { ProjectCard } from './ProjectCard';
+import { staggerContainer } from '@/lib/motion';
 import { projects } from '@/data/projects';
 import type { Locale, ProjectCategory } from '@/types';
 
@@ -55,11 +56,11 @@ export function ProjectFilters({ locale }: ProjectFiltersProps) {
   return (
     <div className={cn(isRTL && 'text-right')}>
       {/* Search */}
-      <div className="relative mb-6">
+      <div className="relative mb-8">
         <Search
           className={cn(
-            'absolute top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]',
-            isRTL ? 'right-3' : 'left-3',
+            'absolute top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)] pointer-events-none',
+            isRTL ? 'right-4' : 'left-4',
           )}
           aria-hidden="true"
         />
@@ -70,11 +71,11 @@ export function ProjectFilters({ locale }: ProjectFiltersProps) {
           placeholder={t('searchPlaceholder')}
           aria-label={t('searchPlaceholder')}
           className={cn(
-            'w-full py-2.5 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)]',
-            'text-sm text-[var(--color-text)] placeholder-[var(--color-text-muted)]',
-            'focus:outline-none focus:ring-2 focus:ring-primary-300 dark:focus:ring-primary-700',
+            'w-full py-3 rounded-xl border border-[var(--color-border)] bg-white/[0.03] backdrop-blur-sm',
+            'text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)]',
+            'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
             'transition-all duration-200',
-            isRTL ? 'pr-10 pl-4 text-right' : 'pl-10 pr-4',
+            isRTL ? 'pr-11 pl-10 text-right' : 'pl-11 pr-10',
           )}
         />
         {searchQuery && (
@@ -82,7 +83,7 @@ export function ProjectFilters({ locale }: ProjectFiltersProps) {
             onClick={() => setSearchQuery('')}
             aria-label="Clear search"
             className={cn(
-              'absolute top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text)]',
+              'absolute top-1/2 -translate-y-1/2 p-1 rounded-md text-[var(--color-text-muted)] hover:text-primary-300 transition-colors',
               isRTL ? 'left-3' : 'right-3',
             )}
           >
@@ -97,25 +98,38 @@ export function ProjectFilters({ locale }: ProjectFiltersProps) {
         aria-label="Filter by category"
         className={cn('flex flex-wrap gap-2 mb-8', isRTL && 'flex-row-reverse')}
       >
-        {categories.map(({ key, i18nKey }) => (
-          <button
-            key={key}
-            onClick={() => setActiveCategory(key)}
-            aria-pressed={activeCategory === key}
-            className={cn(
-              'px-3.5 py-1.5 rounded-full text-sm font-medium transition-all duration-200 border',
-              activeCategory === key
-                ? 'bg-primary-500 border-primary-500 text-white shadow-soft'
-                : 'border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-text-muted)] hover:border-primary-300 hover:text-[var(--color-text)]',
-            )}
-          >
-            {t(`filters.${i18nKey}` as Parameters<typeof t>[0])}
-          </button>
-        ))}
+        {categories.map(({ key, i18nKey }) => {
+          const active = activeCategory === key;
+          return (
+            <button
+              key={key}
+              onClick={() => setActiveCategory(key)}
+              aria-pressed={active}
+              className={cn(
+                'relative px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 border',
+                active
+                  ? 'border-primary-500 text-ink-950 shadow-glow-mint'
+                  : 'border-[var(--color-border)] bg-white/[0.03] text-[var(--color-text-muted)] hover:border-primary-400/60 hover:text-[var(--color-text)]',
+              )}
+            >
+              {active && (
+                <motion.span
+                  layoutId="project-filter-pill"
+                  className="absolute inset-0 rounded-full bg-primary-500"
+                  transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                  aria-hidden="true"
+                />
+              )}
+              <span className="relative z-10">
+                {t(`filters.${i18nKey}` as Parameters<typeof t>[0])}
+              </span>
+            </button>
+          );
+        })}
       </div>
 
       {/* Results count */}
-      <p className={cn('text-sm text-[var(--color-text-muted)] mb-6', isRTL && 'text-right')}>
+      <p className={cn('text-sm text-[var(--color-text-muted)] mb-6 font-mono', isRTL && 'text-right')}>
         {t('resultsCount', { count: filtered.length })}
       </p>
 
@@ -123,9 +137,10 @@ export function ProjectFilters({ locale }: ProjectFiltersProps) {
       <AnimatePresence mode="wait">
         {filtered.length > 0 ? (
           <motion.div
-            key="grid"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            key={`grid-${activeCategory}-${searchQuery}`}
+            variants={staggerContainer(0.07)}
+            initial="hidden"
+            animate="visible"
             exit={{ opacity: 0 }}
             className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
           >
@@ -136,21 +151,22 @@ export function ProjectFilters({ locale }: ProjectFiltersProps) {
                 locale={locale}
                 index={i}
                 viewDetailsLabel={t('viewDetails')}
+                useVariant
               />
             ))}
           </motion.div>
         ) : (
           <motion.div
             key="empty"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             className="py-20 text-center"
           >
             <p className="text-[var(--color-text-muted)] text-lg">{t('noResults')}</p>
             <button
               onClick={() => { setSearchQuery(''); setActiveCategory('all'); }}
-              className="mt-4 text-sm text-primary-500 hover:text-primary-600 font-medium"
+              className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-400 hover:text-primary-300 transition-colors"
             >
               {isRTL ? 'مسح الفلاتر' : 'Clear filters'}
             </button>

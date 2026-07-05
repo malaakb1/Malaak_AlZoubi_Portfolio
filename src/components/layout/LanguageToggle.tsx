@@ -3,11 +3,12 @@
 import { useLocale } from 'next-intl';
 import { useRouter, usePathname } from '@/i18n/navigation';
 import { motion } from 'framer-motion';
+import { Globe } from 'lucide-react';
 
 export function LanguageToggle() {
   const locale = useLocale();
   const router = useRouter();
-  const pathname = usePathname(); // returns path WITHOUT locale prefix
+  const pathname = usePathname(); // path WITHOUT locale prefix
 
   const handleToggle = () => {
     const nextLocale = locale === 'en' ? 'ar' : 'en';
@@ -20,19 +21,10 @@ export function LanguageToggle() {
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       aria-label={locale === 'en' ? 'Switch to Arabic' : 'Switch to English'}
-      className={`
-        relative flex items-center gap-1.5 px-3 py-1.5 rounded-full
-        text-sm font-semibold transition-all duration-200
-        border border-primary-200 dark:border-primary-800
-        bg-primary-50 dark:bg-primary-900/20
-        text-primary-700 dark:text-primary-300
-        hover:bg-primary-100 dark:hover:bg-primary-900/40
-        hover:border-primary-300 dark:hover:border-primary-700
-        focus-visible:ring-2 focus-visible:ring-primary-400
-      `}
+      className="inline-flex items-center gap-1.5 h-10 px-3 rounded-xl text-sm font-semibold border border-[var(--color-border)] bg-white/[0.03] text-[var(--color-text)] hover:border-primary-400/60 hover:text-primary-400 transition-colors"
     >
-      <span className="text-base leading-none" aria-hidden="true">🌐</span>
-      <span>{locale === 'en' ? 'عربي' : 'English'}</span>
+      <Globe className="w-4 h-4" aria-hidden="true" />
+      <span>{locale === 'en' ? 'عربي' : 'EN'}</span>
     </motion.button>
   );
 }

@@ -3,9 +3,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ArrowRight, BarChart3 } from 'lucide-react';
+import { BarChart3, ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/Badge';
+import { ColumnSection } from '@/components/ui/ColumnSection';
+import { Stagger } from '@/components/ui/Reveal';
+import { ViewAllLink } from '@/components/projects/ProjectCard';
+import { fadeUp } from '@/lib/motion';
 import { getFeaturedDashboards } from '@/data/dashboards';
 import type { Locale } from '@/types';
 
@@ -14,84 +18,49 @@ interface FeaturedDashboardsProps {
 }
 
 export function FeaturedDashboards({ locale }: FeaturedDashboardsProps) {
-  const featured = getFeaturedDashboards().slice(0, 3);
+  const featured = getFeaturedDashboards().slice(0, 4);
   const isRTL = locale === 'ar';
 
   if (featured.length === 0) return null;
 
   return (
-    <section className="section-padding" aria-labelledby="featured-dashboards-title">
-      <div className={cn('max-w-6xl mx-auto px-4 sm:px-6', isRTL && 'text-right')}>
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12"
-          style={{ flexDirection: isRTL ? 'row-reverse' : undefined }}
-        >
-          <div>
-            <h2 id="featured-dashboards-title" className="text-3xl sm:text-4xl font-serif mb-2">
-              {isRTL ? 'لوحات البيانات' : 'Dashboards'}
-            </h2>
-            <p className="text-[var(--color-text-muted)]">
-              {isRTL
-                ? 'لوحات تحليلية تفاعلية مبنية بـ Power BI و Tableau و Python'
-                : 'Interactive analytics dashboards built with Power BI, Tableau & Python'}
-            </p>
-          </div>
-          <Link
-            href={`/${locale}/dashboards`}
-            className={cn(
-              'inline-flex items-center gap-1.5 text-sm font-semibold text-primary-500 hover:text-primary-600 transition-colors whitespace-nowrap',
-              isRTL && 'flex-row-reverse',
-            )}
-          >
-            {isRTL ? 'عرض الكل' : 'View All'}
-            <ArrowRight className="w-4 h-4" aria-hidden="true" style={{ transform: isRTL ? 'scaleX(-1)' : undefined }} />
-          </Link>
-        </motion.div>
-
-        {/* Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featured.map((dashboard, i) => (
-            <motion.article
-              key={dashboard.slug}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.12 }}
-              className="card flex flex-col group overflow-hidden"
-            >
-              <Link href={`/${locale}/dashboards/${dashboard.slug}`} className="flex flex-col flex-1">
-              {/* Thumbnail */}
-              <div className="relative aspect-video bg-[var(--color-bg-2)] overflow-hidden">
+    <ColumnSection
+      id="dashboards"
+      isRTL={isRTL}
+      eyebrow={isRTL ? 'تحليلات' : 'Data Stories'}
+      title={isRTL ? 'لوحات البيانات' : 'Dashboards'}
+      subtitle={isRTL
+        ? 'لوحات تحليلية تفاعلية مبنية بـ Power BI و Tableau و Python'
+        : 'Interactive analytics dashboards built with Power BI, Tableau & Python'}
+      action={<ViewAllLink href={`/${locale}/dashboards`} label={isRTL ? 'عرض الكل' : 'View All'} isRTL={isRTL} />}
+    >
+      <Stagger className="grid sm:grid-cols-2 gap-5">
+        {featured.map((dashboard) => (
+          <motion.article key={dashboard.slug} variants={fadeUp} className="group card flex flex-col">
+            <Link href={`/${locale}/dashboards/${dashboard.slug}`} className="flex flex-col flex-1 focus-visible:outline-none">
+              <div className="relative aspect-video bg-ink-800 overflow-hidden">
+                <div className="absolute inset-0 grid place-items-center text-[var(--color-text-muted)]">
+                  <BarChart3 className="w-10 h-10 opacity-20" />
+                </div>
                 <Image
                   src={dashboard.thumbnail}
                   alt={dashboard.title[locale]}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).style.display = 'none';
-                  }}
+                  className="relative object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, 350px"
+                  onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                 />
-                <div className="absolute inset-0 flex items-center justify-center text-[var(--color-text-muted)]">
-                  <BarChart3 className="w-10 h-10 opacity-20" />
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-ink-950/70 via-transparent to-transparent" aria-hidden="true" />
                 {dashboard.liveUrl && (
-                  <div className="absolute top-3 right-3">
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500 text-white">
-                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                      {isRTL ? 'مباشر' : 'Live'}
-                    </span>
-                  </div>
+                  <span className={cn('absolute top-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary-500 text-ink-950', isRTL ? 'left-3' : 'right-3')}>
+                    <span className="w-1.5 h-1.5 rounded-full bg-ink-950 animate-pulse" />
+                    {isRTL ? 'مباشر' : 'LIVE'}
+                  </span>
                 )}
               </div>
 
-              {/* Body */}
               <div className="flex-1 p-5 space-y-2.5">
-                <h3 className={cn('font-serif text-lg font-medium text-[var(--color-text)] leading-snug', isRTL && 'text-right')}>
+                <h3 className={cn('font-serif text-lg font-bold leading-snug text-[var(--color-text)] group-hover:text-primary-300 transition-colors', isRTL && 'text-right')}>
                   {dashboard.title[locale]}
                 </h3>
                 <p className={cn('text-sm text-[var(--color-text-muted)] leading-relaxed line-clamp-2', isRTL && 'text-right')}>
@@ -104,22 +73,21 @@ export function FeaturedDashboards({ locale }: FeaturedDashboardsProps) {
                 </div>
               </div>
 
-              {/* Footer */}
-              <div className={cn('px-5 py-4 border-t border-[var(--color-border)] flex items-center', isRTL ? 'flex-row-reverse justify-between' : 'justify-between')}>
-                <div className={cn('flex gap-2', isRTL && 'flex-row-reverse')}>
+              <div className={cn('px-5 py-4 border-t border-[var(--color-border)] flex items-center justify-between gap-2', isRTL && 'flex-row-reverse')}>
+                <div className={cn('flex gap-4', isRTL && 'flex-row-reverse')}>
                   {dashboard.kpis.slice(0, 2).map((kpi) => (
                     <span key={kpi.label.en} className="text-xs text-[var(--color-text-muted)]">
-                      <span className="font-semibold text-[var(--color-text)]">{kpi.value}</span>{' '}
+                      <span className="font-bold text-gold-400 tabular-nums">{kpi.value}</span>{' '}
                       {kpi.label[locale]}
                     </span>
                   ))}
                 </div>
+                <ArrowUpRight className="w-4 h-4 text-primary-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
               </div>
-              </Link>
-            </motion.article>
-          ))}
-        </div>
-      </div>
-    </section>
+            </Link>
+          </motion.article>
+        ))}
+      </Stagger>
+    </ColumnSection>
   );
 }

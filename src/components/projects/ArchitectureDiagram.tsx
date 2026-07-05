@@ -10,14 +10,15 @@ interface ArchitectureDiagramProps {
   title: string;
 }
 
+// Cyber palette — translucent accent-on-dark node styles.
 const nodeTypeStyles: Record<string, string> = {
-  input:   'bg-emerald-100  dark:bg-emerald-900/40 border-emerald-300  dark:border-emerald-700  text-emerald-800  dark:text-emerald-200',
-  process: 'bg-blue-100     dark:bg-blue-900/40    border-blue-300     dark:border-blue-700     text-blue-800     dark:text-blue-200',
-  model:   'bg-primary-100  dark:bg-primary-900/40 border-primary-300  dark:border-primary-700  text-primary-800  dark:text-primary-200',
-  storage: 'bg-amber-100    dark:bg-amber-900/40   border-amber-300    dark:border-amber-700    text-amber-800    dark:text-amber-200',
-  api:     'bg-cyan-100     dark:bg-cyan-900/40    border-cyan-300     dark:border-cyan-700     text-cyan-800     dark:text-cyan-200',
-  output:  'bg-lavender-100 dark:bg-lavender-900/40 border-lavender-300 dark:border-lavender-700 text-lavender-800 dark:text-lavender-200',
-  ui:      'bg-pink-100     dark:bg-pink-900/40    border-pink-300     dark:border-pink-700     text-pink-800     dark:text-pink-200',
+  input:   'bg-primary-500/12  border border-primary-500/30  text-primary-200',
+  process: 'bg-lavender-400/15 border border-lavender-400/35 text-lavender-200',
+  model:   'bg-magenta-500/12  border border-magenta-500/30  text-magenta-200',
+  storage: 'bg-gold-500/12     border border-gold-500/30     text-gold-200',
+  api:     'bg-primary-500/12  border border-primary-500/30  text-primary-200',
+  output:  'bg-magenta-500/12  border border-magenta-500/30  text-magenta-200',
+  ui:      'bg-lavender-400/15 border border-lavender-400/35 text-lavender-200',
 };
 
 const nodeTypeIcons: Record<string, string> = {

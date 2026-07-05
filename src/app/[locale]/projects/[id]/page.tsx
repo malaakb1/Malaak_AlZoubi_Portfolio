@@ -38,6 +38,36 @@ const linkIcons = {
   other:    ExternalLink,
 };
 
+/** Numbered mono eyebrow + serif title section heading. */
+function SectionHeading({
+  index,
+  title,
+  id,
+  isRTL,
+}: {
+  index: string;
+  title: string;
+  id: string;
+  isRTL: boolean;
+}) {
+  return (
+    <div className={cn('mb-6', isRTL && 'text-right')}>
+      <span
+        className={cn(
+          'inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-[0.24em] text-primary-400 mb-2',
+          isRTL && 'flex-row-reverse',
+        )}
+      >
+        <span className="text-magenta-400/90">{index}</span>
+        <span className="h-px w-5 bg-gradient-to-r from-primary-400 to-transparent" aria-hidden="true" />
+      </span>
+      <h2 id={id} className="text-2xl sm:text-3xl font-serif font-bold tracking-tight">
+        {title}
+      </h2>
+    </div>
+  );
+}
+
 export default async function ProjectDetailPage({ params }: Props) {
   const { locale, id } = await params;
   const project = getProjectById(id);
@@ -49,61 +79,74 @@ export default async function ProjectDetailPage({ params }: Props) {
   const isRTL = l === 'ar';
   const backLabel = t('backToProjects');
 
-  return (
-    <div className="min-h-screen pt-20 pb-20">
-      {/* Back link */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
-        <Link
-          href={`/${locale}/projects`}
-          className={cn(
-            'inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-text-muted)] hover:text-primary-500 transition-colors',
-            isRTL && 'flex-row-reverse',
-          )}
-        >
-          {isRTL ? (
-            <ArrowRight className="w-4 h-4" aria-hidden="true" />
-          ) : (
-            <ArrowLeft className="w-4 h-4" aria-hidden="true" />
-          )}
-          {backLabel}
-        </Link>
-      </div>
+  const BackArrow = isRTL ? ArrowRight : ArrowLeft;
 
-      <article className={cn('max-w-4xl mx-auto px-4 sm:px-6', isRTL && 'text-right')}>
-        {/* Header */}
-        <header className="mb-10">
-          <div className={cn('flex flex-wrap items-center gap-3 mb-4', isRTL && 'flex-row-reverse')}>
+  return (
+    <div className="min-h-screen pb-24">
+      {/* ── Dark hero ─────────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden pt-28 pb-14 sm:pt-32 sm:pb-16">
+        <div className="absolute inset-0 bg-grid" aria-hidden="true" />
+        <div
+          className="blob blob-purple w-[32rem] h-[32rem] -top-40 -start-32 animate-aurora"
+          aria-hidden="true"
+        />
+        <div
+          className="blob blob-mint w-[24rem] h-[24rem] top-0 end-0 animate-aurora"
+          style={{ animationDelay: '-7s' }}
+          aria-hidden="true"
+        />
+
+        <div className={cn('relative max-w-4xl mx-auto px-4 sm:px-6', isRTL && 'text-right')}>
+          {/* Back link */}
+          <Link
+            href={`/${locale}/projects`}
+            className={cn(
+              'inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-text-muted)] hover:text-primary-300 transition-colors mb-8',
+              isRTL && 'flex-row-reverse',
+            )}
+          >
+            <BackArrow className="w-4 h-4" aria-hidden="true" />
+            {backLabel}
+          </Link>
+
+          {/* Meta row: category chip + company gold badge + year (mono) */}
+          <div className={cn('flex flex-wrap items-center gap-3 mb-5', isRTL && 'flex-row-reverse')}>
             <span className={cn('text-xs font-semibold px-3 py-1 rounded-full', categoryColors[project.category])}>
               {categoryLabels[project.category][l]}
             </span>
             {project.company && (
               <span className={cn(
-                'inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1 rounded-full',
-                'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
+                'inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1 rounded-full bg-gold-500/12 text-gold-300 border border-gold-500/30',
+                isRTL && 'flex-row-reverse',
               )}>
                 <Building2 className="w-3.5 h-3.5" aria-hidden="true" />
                 {project.company}
               </span>
             )}
-            <span className="text-xs text-[var(--color-text-muted)]">{project.year}</span>
+            <span className="font-mono text-xs text-[var(--color-text-muted)]">{project.year}</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif mb-4 leading-tight">
+
+          {/* Title */}
+          <h1 className="text-3xl sm:text-4xl lg:text-6xl font-serif font-bold tracking-tight leading-[1.05] mb-5">
             {project.title[l]}
           </h1>
+
+          {/* Short description */}
           <p className="text-lg text-[var(--color-text-muted)] leading-relaxed max-w-3xl">
             {project.shortDesc[l]}
           </p>
 
           {/* Tool icons row */}
-          <div className="mt-6">
-            <ToolIconRow tools={project.tools} size="md" showLabel className={cn(isRTL && 'flex-row-reverse')} />
+          <div className="mt-7">
+            <ToolIconRow tools={project.tools} size="md" showLabel={false} className={cn(isRTL && 'flex-row-reverse')} />
           </div>
 
           {/* Links */}
           {project.links.length > 0 && (
-            <div className={cn('flex flex-wrap gap-3 mt-6', isRTL && 'flex-row-reverse')}>
-              {project.links.map((link) => {
+            <div className={cn('flex flex-wrap gap-3 mt-7', isRTL && 'flex-row-reverse')}>
+              {project.links.map((link, i) => {
                 const Icon = linkIcons[link.type] ?? ExternalLink;
+                const primary = i === 0;
                 return (
                   <a
                     key={link.type + link.label.en}
@@ -112,9 +155,10 @@ export default async function ProjectDetailPage({ params }: Props) {
                     rel="noopener noreferrer"
                     aria-label={link.label[l]}
                     className={cn(
-                      'inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200',
-                      'border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-text-muted)]',
-                      'hover:border-primary-300 hover:text-primary-600 dark:hover:border-primary-700 dark:hover:text-primary-400',
+                      'inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200',
+                      primary
+                        ? 'bg-primary-500 text-ink-950 hover:bg-primary-400 hover:shadow-glow-mint'
+                        : 'border border-[var(--color-border)] bg-white/[0.03] text-[var(--color-text)] hover:border-primary-400 hover:text-primary-300',
                       isRTL && 'flex-row-reverse',
                     )}
                   >
@@ -125,17 +169,16 @@ export default async function ProjectDetailPage({ params }: Props) {
               })}
             </div>
           )}
-        </header>
+        </div>
+      </section>
 
-        {/* Divider */}
-        <hr className="border-[var(--color-border)] mb-10" />
-
+      <article className={cn('max-w-4xl mx-auto px-4 sm:px-6', isRTL && 'text-right')}>
         {/* Sections */}
-        <div className="space-y-10">
+        <div className="space-y-16">
 
           {/* Overview / Full description */}
           <section aria-labelledby="cs-overview">
-            <h2 id="cs-overview" className="text-xl font-serif mb-4">{t('overview')}</h2>
+            <SectionHeading index="01" title={t('overview')} id="cs-overview" isRTL={isRTL} />
             <div className="text-[var(--color-text-muted)] leading-relaxed whitespace-pre-line text-sm sm:text-base">
               {project.fullDesc[l]}
             </div>
@@ -143,31 +186,34 @@ export default async function ProjectDetailPage({ params }: Props) {
 
           {/* Features */}
           <section aria-labelledby="cs-features">
-            <h2 id="cs-features" className="text-xl font-serif mb-4">{t('features')}</h2>
-            <ul className={cn('space-y-2', isRTL ? 'list-none' : 'list-none')}>
+            <SectionHeading index="02" title={t('features')} id="cs-features" isRTL={isRTL} />
+            <ul className="grid sm:grid-cols-2 gap-3">
               {project.features.map((f, i) => (
                 <li
                   key={i}
                   className={cn(
-                    'flex items-start gap-3 text-sm text-[var(--color-text-muted)]',
-                    isRTL && 'flex-row-reverse',
+                    'card flex items-start gap-3 px-4 py-3.5 text-sm text-[var(--color-text)]',
+                    isRTL && 'flex-row-reverse text-right',
                   )}
                 >
-                  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 flex items-center justify-center text-xs font-bold mt-0.5" aria-hidden="true">
+                  <span
+                    className="flex-shrink-0 w-5 h-5 rounded-full bg-primary-500/15 text-primary-300 border border-primary-500/30 flex items-center justify-center text-xs font-bold mt-0.5"
+                    aria-hidden="true"
+                  >
                     ✓
                   </span>
-                  {f[l]}
+                  <span className="leading-relaxed">{f[l]}</span>
                 </li>
               ))}
             </ul>
           </section>
 
-          {/* Architecture */}
+          {/* Architecture / Solution */}
           <section
             aria-labelledby="cs-architecture"
-            className="p-6 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-2)]"
+            className="card p-6 sm:p-8"
           >
-            <h2 id="cs-architecture" className="text-xl font-serif mb-4">{t('solution')}</h2>
+            <SectionHeading index="03" title={t('solution')} id="cs-architecture" isRTL={isRTL} />
             <ArchitectureDiagram
               architecture={project.architecture}
               locale={l}
@@ -177,41 +223,50 @@ export default async function ProjectDetailPage({ params }: Props) {
 
           {/* Tech Stack */}
           <section aria-labelledby="cs-tech">
-            <h2 id="cs-tech" className="text-xl font-serif mb-4">{t('techStack')}</h2>
+            <SectionHeading index="04" title={t('techStack')} id="cs-tech" isRTL={isRTL} />
             <ToolIconRow tools={project.tools} size="lg" showLabel className={cn(isRTL && 'flex-row-reverse')} />
           </section>
 
           {/* Role */}
           <section aria-labelledby="cs-role">
-            <h2 id="cs-role" className="text-xl font-serif mb-4">{t('role')}</h2>
+            <SectionHeading index="05" title={t('role')} id="cs-role" isRTL={isRTL} />
             <p className="text-sm sm:text-base text-[var(--color-text-muted)] leading-relaxed">
               {project.role[l]}
             </p>
           </section>
 
-          {/* Results */}
-          <section
-            aria-labelledby="cs-results"
-            className="p-6 rounded-2xl bg-gradient-to-br from-primary-50 to-lavender-50 dark:from-primary-900/20 dark:to-lavender-900/20 border border-primary-100 dark:border-primary-900/30"
-          >
-            <h2 id="cs-results" className="text-xl font-serif mb-4">{t('results')}</h2>
-            <p className="text-sm sm:text-base text-[var(--color-text-muted)] leading-relaxed">
-              {project.results[l]}
-            </p>
+          {/* Results — highlighted glow / gradient-bordered card */}
+          <section aria-labelledby="cs-results" className="relative">
+            <div className="gradient-border card p-6 sm:p-8 overflow-hidden shadow-glow-mint">
+              <div
+                className="blob blob-mint w-64 h-64 -top-24 end-0 opacity-40"
+                aria-hidden="true"
+              />
+              <div
+                className="blob blob-purple w-56 h-56 -bottom-24 -start-16 opacity-40"
+                aria-hidden="true"
+              />
+              <div className="relative">
+                <SectionHeading index="06" title={t('results')} id="cs-results" isRTL={isRTL} />
+                <p className="text-base sm:text-lg text-[var(--color-text)] leading-relaxed">
+                  {project.results[l]}
+                </p>
+              </div>
+            </div>
           </section>
 
           {/* Challenges */}
           <section aria-labelledby="cs-challenges">
-            <h2 id="cs-challenges" className="text-xl font-serif mb-4">{t('challenges')}</h2>
+            <SectionHeading index="07" title={t('challenges')} id="cs-challenges" isRTL={isRTL} />
             <p className="text-sm sm:text-base text-[var(--color-text-muted)] leading-relaxed">
               {project.challenges[l]}
             </p>
           </section>
 
-          {/* Gallery placeholder */}
+          {/* Gallery */}
           {project.gallery && project.gallery.length > 0 && (
             <section aria-labelledby="cs-gallery">
-              <h2 id="cs-gallery" className="text-xl font-serif mb-4">{t('gallery')}</h2>
+              <SectionHeading index="08" title={t('gallery')} id="cs-gallery" isRTL={isRTL} />
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {project.gallery.map((src, i) => (
                   // eslint-disable-next-line @next/next/no-img-element
@@ -219,7 +274,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                     key={i}
                     src={src}
                     alt={`${project.title[l]} screenshot ${i + 1}`}
-                    className="rounded-xl border border-[var(--color-border)] w-full object-cover aspect-video"
+                    className="rounded-xl border border-[var(--color-border)] w-full object-cover aspect-video transition-transform duration-300 hover:scale-[1.02] hover:border-primary-400/50"
                     loading="lazy"
                   />
                 ))}
@@ -230,19 +285,15 @@ export default async function ProjectDetailPage({ params }: Props) {
         </div>
 
         {/* Bottom nav */}
-        <div className="mt-12 pt-8 border-t border-[var(--color-border)]">
+        <div className="mt-16 pt-8 border-t border-[var(--color-border)]">
           <Link
             href={`/${locale}/projects`}
             className={cn(
-              'inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-text-muted)] hover:text-primary-500 transition-colors',
+              'inline-flex items-center gap-1.5 text-sm font-semibold text-primary-400 hover:text-primary-300 transition-colors',
               isRTL && 'flex-row-reverse',
             )}
           >
-            {isRTL ? (
-              <ArrowRight className="w-4 h-4" aria-hidden="true" />
-            ) : (
-              <ArrowLeft className="w-4 h-4" aria-hidden="true" />
-            )}
+            <BackArrow className="w-4 h-4" aria-hidden="true" />
             {backLabel}
           </Link>
         </div>

@@ -123,7 +123,7 @@
   "about": {
     "title": "About Me",
     "subtitle": "AI Developer building intelligent solutions that bridge research and real-world impact.",
-    "bio1": "I'm Malaak Al Zoubi, an AI Developer based in Ajman, UAE, with a Bachelor's degree in Artificial Intelligence. I specialise in building end-to-end AI systems — from intelligent RAG-powered assistants and bilingual NLP pipelines to computer vision tools and predictive ML models.",
+    "bio1": "I'm Malaak Al Zoubi, an AI Developer based in Dubai, UAE, with a Bachelor's degree in Artificial Intelligence. I specialise in building end-to-end AI systems — from intelligent RAG-powered assistants and bilingual NLP pipelines to computer vision tools and predictive ML models.",
     "bio2": "My work bridges the gap between cutting-edge research and real-world deployment, with a strong focus on Arabic language AI, generative models, and scalable API-driven architectures. I am deeply committed to building AI that is useful, accessible, and impactful.",
     "experience": {
       "title": "Experience"
@@ -151,7 +151,7 @@
       "viewCert": "View Certificate"
     },
     "downloadCV": "Download CV",
-    "location": "Ajman, UAE"
+    "location": "Dubai, UAE"
   },
   "timeline": {
     "present": "Present",
@@ -191,7 +191,7 @@
     "subtitle": "Have a project in mind, want to collaborate, or just say hello? I'd love to hear from you.",
     "info": {
       "email": "malaakbalzoubi@gmail.com",
-      "location": "Ajman, UAE",
+      "location": "Dubai, UAE",
       "availability": "Open to opportunities",
       "responseTime": "Usually responds within 24 hours"
     },
@@ -210,7 +210,7 @@
   "footer": {
     "rights": "All rights reserved.",
     "builtWith": "Built with Next.js & Tailwind CSS",
-    "location": "Ajman, UAE",
+    "location": "Dubai, UAE",
     "tagline": "Building AI that matters."
   },
   "notFound": {

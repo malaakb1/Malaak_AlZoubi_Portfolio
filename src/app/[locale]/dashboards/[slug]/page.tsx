@@ -55,20 +55,20 @@ export default async function DashboardDetailPage({ params }: Props) {
   const isRTL = l === 'ar';
 
   const sectionTitle = (icon: React.ReactNode, en: string, ar: string) => (
-    <h2 className={cn('flex items-center gap-2 text-xl font-serif mb-4', isRTL && 'flex-row-reverse')}>
+    <h2 className={cn('flex items-center gap-2.5 text-xl sm:text-2xl font-serif font-bold tracking-tight mb-5', isRTL && 'flex-row-reverse')}>
       {icon}
       {isRTL ? ar : en}
     </h2>
   );
 
   return (
-    <div className="min-h-screen pt-20 pb-20">
-      {/* Back link */}
+    <div className="min-h-screen pt-24 pb-20">
+      {/* ─── Back link ──────────────────────────────────────────────────── */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6">
         <Link
           href={`/${locale}/dashboards`}
           className={cn(
-            'inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-text-muted)] hover:text-primary-500 transition-colors',
+            'inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-text-muted)] hover:text-primary-400 transition-colors',
             isRTL && 'flex-row-reverse',
           )}
         >
@@ -78,41 +78,44 @@ export default async function DashboardDetailPage({ params }: Props) {
       </div>
 
       {/* ─── Hero Image ─────────────────────────────────────────────────── */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 mb-10">
-        <div className="relative aspect-[16/8] rounded-2xl overflow-hidden bg-[var(--color-bg-2)] border border-[var(--color-border)]">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 mb-12">
+        <div className="relative aspect-[16/8] rounded-2xl overflow-hidden bg-ink-850 border border-[var(--color-border)] shadow-card">
+          {/* Fallback */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <BarChart3 className="w-16 h-16 text-[var(--color-text-muted)] opacity-20" />
+          </div>
           <Image
             src={dashboard.heroImage}
             alt={dashboard.title[l]}
             fill
-            className="object-cover"
+            className="relative object-cover"
             priority
             sizes="(max-width: 1280px) 100vw, 1280px"
             onError={(e) => {
               (e.target as HTMLImageElement).style.display = 'none';
             }}
           />
-          {/* Fallback */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <BarChart3 className="w-16 h-16 text-[var(--color-text-muted)] opacity-20" />
-          </div>
           {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink-950/85 via-ink-950/30 to-transparent" aria-hidden />
           {/* Title on hero */}
           <div className={cn('absolute bottom-0 left-0 right-0 p-6 sm:p-10', isRTL && 'text-right')}>
-            <h1 className="text-2xl sm:text-4xl font-serif text-white mb-2 drop-shadow-lg">
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-serif font-bold tracking-tight text-white mb-3 drop-shadow-lg">
               {dashboard.title[l]}
             </h1>
             <p className="text-sm sm:text-base text-white/80 max-w-2xl drop-shadow">
               {dashboard.shortDescription[l]}
             </p>
             {/* CTAs */}
-            <div className={cn('flex gap-3 mt-4', isRTL && 'flex-row-reverse')}>
+            <div className={cn('flex flex-wrap gap-3 mt-5', isRTL && 'flex-row-reverse')}>
               {dashboard.liveUrl && (
                 <a
                   href={dashboard.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold bg-white text-gray-900 hover:bg-gray-100 transition-colors shadow-soft"
+                  className={cn(
+                    'inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold bg-primary-500 text-ink-950 hover:bg-primary-400 hover:shadow-glow-mint transition-all',
+                    isRTL && 'flex-row-reverse',
+                  )}
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
                   {isRTL ? 'فتح اللوحة المباشرة' : 'Open Live Dashboard'}
@@ -123,7 +126,10 @@ export default async function DashboardDetailPage({ params }: Props) {
                   href={dashboard.repoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold border border-white/40 text-white hover:bg-white/10 transition-colors"
+                  className={cn(
+                    'inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold border border-white/40 text-white hover:bg-white/10 transition-colors',
+                    isRTL && 'flex-row-reverse',
+                  )}
                 >
                   <Github className="w-3.5 h-3.5" />
                   GitHub
@@ -134,19 +140,16 @@ export default async function DashboardDetailPage({ params }: Props) {
         </div>
       </div>
 
-      <article className={cn('max-w-5xl mx-auto px-4 sm:px-6 space-y-12', isRTL && 'text-right')}>
+      <article className={cn('max-w-5xl mx-auto px-4 sm:px-6 space-y-14', isRTL && 'text-right')}>
         {/* ─── KPI Cards ──────────────────────────────────────────────── */}
         {dashboard.kpis.length > 0 && (
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {dashboard.kpis.map((kpi) => (
-              <div
-                key={kpi.label.en}
-                className="card p-4 text-center"
-              >
-                <div className="text-2xl font-bold text-primary-600 dark:text-primary-400">
+              <div key={kpi.label.en} className="card p-5 text-center">
+                <div className="text-2xl sm:text-3xl font-bold text-gold-400 tabular-nums">
                   {kpi.value}
                 </div>
-                <div className="text-xs text-[var(--color-text-muted)] mt-1">
+                <div className="text-xs text-[var(--color-text-muted)] mt-1.5">
                   {kpi.label[l]}
                 </div>
               </div>
@@ -157,7 +160,7 @@ export default async function DashboardDetailPage({ params }: Props) {
         {/* ─── About / Story ─────────────────────────────────────────── */}
         <section>
           {sectionTitle(
-            <FileText className="w-5 h-5 text-primary-500" />,
+            <FileText className="w-5 h-5 text-primary-400" />,
             'About this Dashboard',
             'حول هذه اللوحة',
           )}
@@ -169,7 +172,7 @@ export default async function DashboardDetailPage({ params }: Props) {
         {/* ─── Data Sources ──────────────────────────────────────────── */}
         <section>
           {sectionTitle(
-            <Database className="w-5 h-5 text-emerald-500" />,
+            <Database className="w-5 h-5 text-primary-400" />,
             'Data Sources',
             'مصادر البيانات',
           )}
@@ -186,7 +189,7 @@ export default async function DashboardDetailPage({ params }: Props) {
         {/* ─── Modeling / Transformations ─────────────────────────────── */}
         <section>
           {sectionTitle(
-            <Wrench className="w-5 h-5 text-amber-500" />,
+            <Wrench className="w-5 h-5 text-gold-400" />,
             'Modeling & Transformations',
             'النمذجة والتحويلات',
           )}
@@ -199,7 +202,7 @@ export default async function DashboardDetailPage({ params }: Props) {
         {dashboard.keyInsights.length > 0 && (
           <section>
             {sectionTitle(
-              <Lightbulb className="w-5 h-5 text-yellow-500" />,
+              <Lightbulb className="w-5 h-5 text-gold-400" />,
               'Key Insights',
               'أهم الرؤى',
             )}
@@ -208,11 +211,11 @@ export default async function DashboardDetailPage({ params }: Props) {
                 <li
                   key={i}
                   className={cn(
-                    'flex items-start gap-2 text-sm text-[var(--color-text-muted)] leading-relaxed',
+                    'flex items-start gap-2.5 text-sm text-[var(--color-text-muted)] leading-relaxed',
                     isRTL && 'flex-row-reverse',
                   )}
                 >
-                  <span className="text-primary-500 font-bold mt-0.5">•</span>
+                  <span className="text-magenta-400 font-bold mt-0.5">•</span>
                   {insight[l]}
                 </li>
               ))}
@@ -224,7 +227,7 @@ export default async function DashboardDetailPage({ params }: Props) {
         {dashboard.screenshots.length > 0 && (
           <section>
             {sectionTitle(
-              <BarChart3 className="w-5 h-5 text-lavender-500" />,
+              <BarChart3 className="w-5 h-5 text-lavender-400" />,
               'Screenshots',
               'لقطات الشاشة',
             )}
@@ -232,22 +235,23 @@ export default async function DashboardDetailPage({ params }: Props) {
               {dashboard.screenshots.map((src, i) => (
                 <div
                   key={i}
-                  className="relative aspect-video rounded-xl overflow-hidden bg-[var(--color-bg-2)] border border-[var(--color-border)]"
+                  className="relative aspect-video rounded-xl overflow-hidden bg-ink-850 border border-[var(--color-border)]"
                 >
+                  {/* Fallback */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <BarChart3 className="w-8 h-8 text-[var(--color-text-muted)] opacity-15" />
+                  </div>
                   <Image
                     src={src}
                     alt={`${dashboard.title[l]} screenshot ${i + 1}`}
                     fill
-                    className="object-cover"
+                    className="relative object-cover"
                     sizes="(max-width: 640px) 100vw, 50vw"
                     loading="lazy"
                     onError={(e) => {
                       (e.target as HTMLImageElement).style.display = 'none';
                     }}
                   />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <BarChart3 className="w-8 h-8 text-[var(--color-text-muted)] opacity-15" />
-                  </div>
                 </div>
               ))}
             </div>
@@ -258,7 +262,7 @@ export default async function DashboardDetailPage({ params }: Props) {
         {dashboard.techStack.length > 0 && (
           <section>
             {sectionTitle(
-              <Wrench className="w-5 h-5 text-cyan-500" />,
+              <Wrench className="w-5 h-5 text-primary-400" />,
               'Tech Stack',
               'التقنيات المستخدمة',
             )}
@@ -274,7 +278,7 @@ export default async function DashboardDetailPage({ params }: Props) {
         {/* ─── Role ──────────────────────────────────────────────────── */}
         {dashboard.role && (
           <section className="card p-6">
-            <h3 className={cn('text-sm font-semibold text-[var(--color-text-muted)] uppercase tracking-widest mb-2', isRTL && 'text-right')}>
+            <h3 className={cn('font-mono text-xs font-semibold text-primary-400 uppercase tracking-[0.2em] mb-2.5', isRTL && 'text-right')}>
               {isRTL ? 'دوري' : 'My Role'}
             </h3>
             <p className="text-sm text-[var(--color-text)] leading-relaxed">
@@ -290,7 +294,10 @@ export default async function DashboardDetailPage({ params }: Props) {
               href={dashboard.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold bg-primary-500 hover:bg-primary-600 text-white shadow-soft transition-all"
+              className={cn(
+                'inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold bg-primary-500 text-ink-950 hover:bg-primary-400 hover:shadow-glow-mint transition-all',
+                isRTL && 'flex-row-reverse',
+              )}
             >
               <ExternalLink className="w-3.5 h-3.5" />
               {isRTL ? 'فتح اللوحة المباشرة' : 'Open Live Dashboard'}
@@ -301,7 +308,10 @@ export default async function DashboardDetailPage({ params }: Props) {
               href={dashboard.repoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold border border-[var(--color-border)] text-[var(--color-text)] hover:bg-[var(--color-bg-2)] transition-all"
+              className={cn(
+                'inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold border border-[var(--color-border)] text-[var(--color-text)] hover:border-primary-400 hover:text-primary-300 transition-all',
+                isRTL && 'flex-row-reverse',
+              )}
             >
               <Github className="w-3.5 h-3.5" />
               GitHub
