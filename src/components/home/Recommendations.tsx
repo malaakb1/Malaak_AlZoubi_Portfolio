@@ -46,14 +46,14 @@ export function Recommendations({ locale }: RecommendationsProps) {
       <button
         onClick={() => paginate(isRTL ? 1 : -1)}
         aria-label={t('prev')}
-        className="w-9 h-9 rounded-full border border-[var(--color-border)] bg-white/[0.03] text-[var(--color-text-muted)] hover:text-primary-400 hover:border-primary-400/60 transition-colors grid place-items-center"
+        className="w-9 h-9 rounded-full border border-[var(--color-border)] bg-[var(--surface)] text-[var(--color-text-muted)] hover:text-primary-400 hover:border-primary-400/60 transition-colors grid place-items-center"
       >
         {isRTL ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
       </button>
       <button
         onClick={() => paginate(isRTL ? -1 : 1)}
         aria-label={t('next')}
-        className="w-9 h-9 rounded-full border border-[var(--color-border)] bg-white/[0.03] text-[var(--color-text-muted)] hover:text-primary-400 hover:border-primary-400/60 transition-colors grid place-items-center"
+        className="w-9 h-9 rounded-full border border-[var(--color-border)] bg-[var(--surface)] text-[var(--color-text-muted)] hover:text-primary-400 hover:border-primary-400/60 transition-colors grid place-items-center"
       >
         {isRTL ? <ChevronLeft className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
       </button>
@@ -91,7 +91,7 @@ export function Recommendations({ locale }: RecommendationsProps) {
                   {rec.quote[locale]}
                 </blockquote>
                 <div className={cn('flex items-center gap-3 pt-5 border-t border-[var(--color-border)]', isRTL && 'flex-row-reverse text-right')}>
-                  <div className="flex-shrink-0 w-11 h-11 rounded-full grid place-items-center text-sm font-bold text-ink-950 bg-gradient-mint-pink">
+                  <div className="flex-shrink-0 w-11 h-11 rounded-full grid place-items-center text-sm font-bold text-cream bg-gradient-mint-pink">
                     {initials}
                   </div>
                   <div className="min-w-0">

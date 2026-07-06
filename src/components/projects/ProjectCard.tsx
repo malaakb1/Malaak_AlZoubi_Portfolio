@@ -43,7 +43,7 @@ export function ProjectCard({ project, locale, index = 0, viewDetailsLabel, useV
               {categoryLabels[project.category][locale]}
             </span>
             {project.company && (
-              <span className={cn('inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-full bg-gold-500/12 text-gold-300 border border-gold-500/30', isRTL && 'flex-row-reverse')}>
+              <span className={cn('inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-full bg-gold-500/12 text-gold-400 border border-gold-500/30', isRTL && 'flex-row-reverse')}>
                 <Building2 className="w-3 h-3" aria-hidden="true" />
                 {project.company}
               </span>
@@ -54,7 +54,7 @@ export function ProjectCard({ project, locale, index = 0, viewDetailsLabel, useV
 
         {/* Body */}
         <div className="flex-1 px-5 pt-4 pb-4 space-y-3">
-          <h3 className={cn('font-serif text-lg font-bold leading-snug text-[var(--color-text)] group-hover:text-primary-300 transition-colors', isRTL && 'text-right')}>
+          <h3 className={cn('font-serif text-lg font-bold leading-snug text-[var(--color-text)] group-hover:text-primary-400 transition-colors', isRTL && 'text-right')}>
             {project.title[locale]}
           </h3>
           <p className={cn('text-sm text-[var(--color-text-muted)] leading-relaxed line-clamp-3', isRTL && 'text-right')}>
@@ -72,7 +72,7 @@ export function ProjectCard({ project, locale, index = 0, viewDetailsLabel, useV
         <div className={cn('px-5 py-4 border-t border-[var(--color-border)] flex items-center justify-between gap-2', isRTL && 'flex-row-reverse')}>
           <div className={cn('flex flex-wrap gap-1', isRTL && 'flex-row-reverse')}>
             {project.tags.slice(0, 2).map((tag) => (
-              <span key={tag} className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-white/[0.03] text-[var(--color-text-muted)] border border-[var(--color-border)]">
+              <span key={tag} className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-[var(--surface)] text-[var(--color-text-muted)] border border-[var(--color-border)]">
                 {tag}
               </span>
             ))}
@@ -92,7 +92,7 @@ export function ViewAllLink({ href, label, isRTL }: { href: string; label: strin
   return (
     <Link
       href={href}
-      className={cn('group inline-flex items-center gap-1.5 text-sm font-semibold text-primary-400 hover:text-primary-300 transition-colors whitespace-nowrap', isRTL && 'flex-row-reverse')}
+      className={cn('group inline-flex items-center gap-1.5 text-sm font-semibold text-primary-400 hover:text-primary-400 transition-colors whitespace-nowrap', isRTL && 'flex-row-reverse')}
     >
       {label}
       <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" style={{ transform: isRTL ? 'scaleX(-1)' : undefined }} />

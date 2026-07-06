@@ -12,7 +12,7 @@ export function ThemeToggle() {
   useEffect(() => setMounted(true), []);
 
   if (!mounted) {
-    return <div className="w-10 h-10 rounded-xl border border-[var(--color-border)] bg-white/[0.03] animate-pulse" />;
+    return <div className="w-10 h-10 rounded-xl border border-[var(--color-border)] bg-[var(--surface)] animate-pulse" />;
   }
 
   const isDark = theme === 'dark';
@@ -23,7 +23,7 @@ export function ThemeToggle() {
       whileHover={{ scale: 1.06 }}
       whileTap={{ scale: 0.94 }}
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-      className="relative w-10 h-10 flex items-center justify-center rounded-xl overflow-hidden border border-[var(--color-border)] bg-white/[0.03] text-[var(--color-text)] hover:border-primary-400/60 hover:text-primary-400 transition-colors"
+      className="relative w-10 h-10 flex items-center justify-center rounded-xl overflow-hidden border border-[var(--color-border)] bg-[var(--surface)] text-[var(--color-text)] hover:border-primary-400/60 hover:text-primary-400 transition-colors"
     >
       <AnimatePresence mode="wait" initial={false}>
         <motion.span

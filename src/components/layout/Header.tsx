@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
-import { ThemeToggle } from './ThemeToggle';
 import { cn } from '@/lib/utils';
 import type { Locale } from '@/types';
 
@@ -71,7 +70,7 @@ export function Header({ locale }: HeaderProps) {
                   href={`/${locale}${href}`}
                   className={cn(
                     'relative px-3.5 py-1.5 text-sm font-medium rounded-full transition-colors duration-200',
-                    active ? 'text-ink-950' : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]',
+                    active ? 'text-cream' : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]',
                   )}
                 >
                   {active && (
@@ -96,10 +95,6 @@ export function Header({ locale }: HeaderProps) {
           >
             {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
-
-          {/* Divider + theme toggle */}
-          <span className="hidden md:block w-px h-5 bg-[var(--color-border)] mx-1" aria-hidden="true" />
-          <ThemeToggle />
         </div>
 
         {/* Mobile dropdown */}
@@ -128,8 +123,8 @@ export function Header({ locale }: HeaderProps) {
                       className={cn(
                         'flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-colors',
                         isActive(href)
-                          ? 'bg-primary-500/12 text-primary-300 border border-primary-500/30'
-                          : 'text-[var(--color-text-muted)] hover:bg-white/[0.05] hover:text-[var(--color-text)]',
+                          ? 'bg-primary-500/12 text-primary-400 border border-primary-500/30'
+                          : 'text-[var(--color-text-muted)] hover:bg-[var(--surface-2)] hover:text-[var(--color-text)]',
                         isRTL && 'flex-row-reverse',
                       )}
                     >

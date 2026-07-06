@@ -113,7 +113,7 @@ export default async function DashboardDetailPage({ params }: Props) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={cn(
-                    'inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold bg-primary-500 text-ink-950 hover:bg-primary-400 hover:shadow-glow-mint transition-all',
+                    'inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold bg-primary-500 text-cream hover:bg-primary-400 hover:shadow-glow-mint transition-all',
                     isRTL && 'flex-row-reverse',
                   )}
                 >
@@ -295,7 +295,7 @@ export default async function DashboardDetailPage({ params }: Props) {
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
-                'inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold bg-primary-500 text-ink-950 hover:bg-primary-400 hover:shadow-glow-mint transition-all',
+                'inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold bg-primary-500 text-cream hover:bg-primary-400 hover:shadow-glow-mint transition-all',
                 isRTL && 'flex-row-reverse',
               )}
             >
@@ -309,7 +309,7 @@ export default async function DashboardDetailPage({ params }: Props) {
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
-                'inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold border border-[var(--color-border)] text-[var(--color-text)] hover:border-primary-400 hover:text-primary-300 transition-all',
+                'inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold border border-[var(--color-border)] text-[var(--color-text)] hover:border-primary-400 hover:text-primary-400 transition-all',
                 isRTL && 'flex-row-reverse',
               )}
             >

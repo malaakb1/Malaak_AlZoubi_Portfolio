@@ -67,7 +67,7 @@ export function ProjectRow({ project, locale, index = 0, viewDetailsLabel, useVa
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <h3 className="font-serif text-lg sm:text-xl font-bold leading-snug text-[var(--color-text)] group-hover:text-primary-300 transition-colors line-clamp-1">
+          <h3 className="font-serif text-lg sm:text-xl font-bold leading-snug text-[var(--color-text)] group-hover:text-primary-400 transition-colors line-clamp-1">
             {project.title[locale]}
           </h3>
           <div className={cn('mt-1.5 flex items-center gap-2 text-sm text-[var(--color-text-muted)] min-w-0', isRTL && 'flex-row-reverse')}>

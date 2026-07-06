@@ -101,7 +101,7 @@ export default async function ProjectDetailPage({ params }: Props) {
           <Link
             href={`/${locale}/projects`}
             className={cn(
-              'inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-text-muted)] hover:text-primary-300 transition-colors mb-8',
+              'inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-text-muted)] hover:text-primary-400 transition-colors mb-8',
               isRTL && 'flex-row-reverse',
             )}
           >
@@ -116,7 +116,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             </span>
             {project.company && (
               <span className={cn(
-                'inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1 rounded-full bg-gold-500/12 text-gold-300 border border-gold-500/30',
+                'inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1 rounded-full bg-gold-500/12 text-gold-400 border border-gold-500/30',
                 isRTL && 'flex-row-reverse',
               )}>
                 <Building2 className="w-3.5 h-3.5" aria-hidden="true" />
@@ -157,8 +157,8 @@ export default async function ProjectDetailPage({ params }: Props) {
                     className={cn(
                       'inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200',
                       primary
-                        ? 'bg-primary-500 text-ink-950 hover:bg-primary-400 hover:shadow-glow-mint'
-                        : 'border border-[var(--color-border)] bg-white/[0.03] text-[var(--color-text)] hover:border-primary-400 hover:text-primary-300',
+                        ? 'bg-primary-500 text-cream hover:bg-primary-400 hover:shadow-glow-mint'
+                        : 'border border-[var(--color-border)] bg-[var(--surface)] text-[var(--color-text)] hover:border-primary-400 hover:text-primary-400',
                       isRTL && 'flex-row-reverse',
                     )}
                   >
@@ -197,7 +197,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                   )}
                 >
                   <span
-                    className="flex-shrink-0 w-5 h-5 rounded-full bg-primary-500/15 text-primary-300 border border-primary-500/30 flex items-center justify-center text-xs font-bold mt-0.5"
+                    className="flex-shrink-0 w-5 h-5 rounded-full bg-primary-500/15 text-primary-400 border border-primary-500/30 flex items-center justify-center text-xs font-bold mt-0.5"
                     aria-hidden="true"
                   >
                     ✓
@@ -289,7 +289,7 @@ export default async function ProjectDetailPage({ params }: Props) {
           <Link
             href={`/${locale}/projects`}
             className={cn(
-              'inline-flex items-center gap-1.5 text-sm font-semibold text-primary-400 hover:text-primary-300 transition-colors',
+              'inline-flex items-center gap-1.5 text-sm font-semibold text-primary-400 hover:text-primary-400 transition-colors',
               isRTL && 'flex-row-reverse',
             )}
           >

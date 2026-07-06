@@ -67,7 +67,7 @@ const skillGroups: { key: string; accent: string; skills: Skill[] }[] = [
 const accentText: Record<string, string> = {
   primary: 'text-primary-400',
   magenta: 'text-magenta-400',
-  lavender: 'text-lavender-300',
+  lavender: 'text-lavender-400',
   gold: 'text-gold-400',
 };
 const accentHover: Record<string, string> = {
@@ -90,7 +90,7 @@ function SkillPill({ skill, hover }: { skill: Skill; hover: string }) {
   return (
     <div
       className={cn(
-        'flex items-center gap-2 px-3.5 py-2 rounded-xl border border-[var(--color-border)] bg-white/[0.03]',
+        'flex items-center gap-2 px-3.5 py-2 rounded-xl border border-[var(--color-border)] bg-[var(--surface)]',
         'transition-all duration-200 hover:-translate-y-0.5 group cursor-default',
         hover,
       )}

@@ -71,7 +71,7 @@ export function ProjectFilters({ locale }: ProjectFiltersProps) {
           placeholder={t('searchPlaceholder')}
           aria-label={t('searchPlaceholder')}
           className={cn(
-            'w-full py-3 rounded-xl border border-[var(--color-border)] bg-white/[0.03] backdrop-blur-sm',
+            'w-full py-3 rounded-xl border border-[var(--color-border)] bg-[var(--surface)] backdrop-blur-sm',
             'text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)]',
             'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
             'transition-all duration-200',
@@ -83,7 +83,7 @@ export function ProjectFilters({ locale }: ProjectFiltersProps) {
             onClick={() => setSearchQuery('')}
             aria-label="Clear search"
             className={cn(
-              'absolute top-1/2 -translate-y-1/2 p-1 rounded-md text-[var(--color-text-muted)] hover:text-primary-300 transition-colors',
+              'absolute top-1/2 -translate-y-1/2 p-1 rounded-md text-[var(--color-text-muted)] hover:text-primary-400 transition-colors',
               isRTL ? 'left-3' : 'right-3',
             )}
           >
@@ -108,8 +108,8 @@ export function ProjectFilters({ locale }: ProjectFiltersProps) {
               className={cn(
                 'relative px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 border',
                 active
-                  ? 'border-primary-500 text-ink-950 shadow-glow-mint'
-                  : 'border-[var(--color-border)] bg-white/[0.03] text-[var(--color-text-muted)] hover:border-primary-400/60 hover:text-[var(--color-text)]',
+                  ? 'border-primary-500 text-cream shadow-glow-mint'
+                  : 'border-[var(--color-border)] bg-[var(--surface)] text-[var(--color-text-muted)] hover:border-primary-400/60 hover:text-[var(--color-text)]',
               )}
             >
               {active && (
@@ -166,7 +166,7 @@ export function ProjectFilters({ locale }: ProjectFiltersProps) {
             <p className="text-[var(--color-text-muted)] text-lg">{t('noResults')}</p>
             <button
               onClick={() => { setSearchQuery(''); setActiveCategory('all'); }}
-              className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-400 hover:text-primary-300 transition-colors"
+              className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-400 hover:text-primary-400 transition-colors"
             >
               {isRTL ? 'مسح الفلاتر' : 'Clear filters'}
             </button>

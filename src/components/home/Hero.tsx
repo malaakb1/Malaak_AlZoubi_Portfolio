@@ -77,7 +77,7 @@ export function Hero({ locale }: HeroProps) {
           {SPECIALISATIONS.map((tag) => (
             <span
               key={tag}
-              className="mx-1.5 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--color-border)] bg-white/[0.02] text-sm text-[var(--color-text-muted)] font-mono normal-case"
+              className="mx-1.5 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--color-border)] bg-[var(--surface)] text-sm text-[var(--color-text-muted)] font-mono normal-case"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-primary-500" aria-hidden="true" />
               {tag}

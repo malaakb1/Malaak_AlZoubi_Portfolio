@@ -15,8 +15,8 @@ export default function RootNotFound() {
         textAlign: 'center',
         padding: '2rem',
         fontFamily: "'El Messiri', system-ui, sans-serif",
-        background: '#050507',
-        color: '#FFF8FB',
+        background: '#221D27',
+        color: '#F1ECF0',
       }}
     >
       <h1
@@ -26,7 +26,7 @@ export default function RootNotFound() {
           margin: '0 0 1rem',
           fontWeight: 700,
           letterSpacing: '-0.02em',
-          background: 'linear-gradient(110deg, #00E0BA 0%, #FF3483 100%)',
+          background: 'linear-gradient(110deg, #DBA0B2 0%, #A673A0 100%)',
           WebkitBackgroundClip: 'text',
           backgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
@@ -35,7 +35,7 @@ export default function RootNotFound() {
       >
         404
       </h1>
-      <p style={{ color: '#BEB4C8', marginBottom: '2rem' }}>
+      <p style={{ color: '#B2A4AD', marginBottom: '2rem' }}>
         Page not found.
       </p>
       <Link
@@ -44,8 +44,8 @@ export default function RootNotFound() {
           display: 'inline-block',
           padding: '0.75rem 1.75rem',
           borderRadius: '9999px',
-          background: '#00E0BA',
-          color: '#050507',
+          background: '#853953',
+          color: '#F3F4F4',
           fontWeight: 600,
           textDecoration: 'none',
         }}

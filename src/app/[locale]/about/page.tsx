@@ -105,7 +105,7 @@ export default async function AboutPage({ params }: Props) {
               download
               className={cn(
                 'inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm',
-                'bg-primary-500 text-ink-950 hover:bg-primary-400 hover:shadow-glow-mint transition-all duration-200',
+                'bg-primary-500 text-cream hover:bg-primary-400 hover:shadow-glow-mint transition-all duration-200',
                 isRTL && 'flex-row-reverse',
               )}
             >
@@ -134,7 +134,7 @@ export default async function AboutPage({ params }: Props) {
           </div>
           <div className={cn('card p-6 flex gap-4', isRTL && 'flex-row-reverse')}>
             <div
-              className="w-11 h-11 rounded-full bg-gold-500/12 text-gold-300 ring-1 ring-gold-500/40 shadow-glow-gold flex items-center justify-center flex-shrink-0"
+              className="w-11 h-11 rounded-full bg-gold-500/12 text-gold-400 ring-1 ring-gold-500/40 shadow-glow-gold flex items-center justify-center flex-shrink-0"
               aria-hidden="true"
             >
               <GraduationCap className="w-5 h-5" />
@@ -144,7 +144,7 @@ export default async function AboutPage({ params }: Props) {
               <p className="text-primary-400 font-medium text-sm mt-0.5">
                 {t('education.institution')}
               </p>
-              <p className="text-sm font-semibold text-gold-300 mt-1">{t('education.grade')}</p>
+              <p className="text-sm font-semibold text-gold-400 mt-1">{t('education.grade')}</p>
               <p className="text-xs text-[var(--color-text-muted)] mt-1">{t('education.note')}</p>
             </div>
           </div>
@@ -202,8 +202,8 @@ export default async function AboutPage({ params }: Props) {
                   key={skill}
                   className={cn(
                     'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium',
-                    'border border-[var(--color-border)] bg-white/[0.03] text-[var(--color-text)]',
-                    'hover:border-magenta-400/60 hover:text-magenta-300 transition-colors',
+                    'border border-[var(--color-border)] bg-[var(--surface)] text-[var(--color-text)]',
+                    'hover:border-magenta-400/60 hover:text-magenta-400 transition-colors',
                   )}
                 >
                   <Heart className="w-3 h-3 text-magenta-400" aria-hidden="true" />

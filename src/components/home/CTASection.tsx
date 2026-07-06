@@ -40,14 +40,14 @@ export function CTASection({ locale }: CTASectionProps) {
           <div className={cn('flex flex-col sm:flex-row items-center justify-center gap-3', isRTL && 'sm:flex-row-reverse')}>
             <Link
               href={`/${locale}/contact`}
-              className={cn('inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm bg-primary-500 text-ink-950 hover:bg-primary-400 hover:shadow-glow-mint transition-all active:scale-95', isRTL && 'flex-row-reverse')}
+              className={cn('inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm bg-primary-500 text-cream hover:bg-primary-400 hover:shadow-glow-mint transition-all active:scale-95', isRTL && 'flex-row-reverse')}
             >
               <Mail className="w-4 h-4" aria-hidden="true" />
               {t('button')}
             </Link>
             <Link
               href={`/${locale}/projects`}
-              className={cn('group inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm border border-[var(--color-border)] text-[var(--color-text)] hover:border-primary-400 hover:text-primary-300 transition-all', isRTL && 'flex-row-reverse')}
+              className={cn('group inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm border border-[var(--color-border)] text-[var(--color-text)] hover:border-primary-400 hover:text-primary-400 transition-all', isRTL && 'flex-row-reverse')}
             >
               {isRTL ? 'استعرض أعمالي' : 'Browse Projects'}
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" style={{ transform: isRTL ? 'scaleX(-1)' : undefined }} />

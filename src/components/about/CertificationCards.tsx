@@ -57,7 +57,7 @@ export function CertificationCards({ locale }: CertificationCardsProps) {
                 <Award className="w-4 h-4" />
               </div>
               <div className={cn('flex-1 min-w-0', isRTL && 'text-right')}>
-                <p className="font-semibold text-sm text-[var(--color-text)] leading-snug group-hover:text-primary-300 transition-colors">
+                <p className="font-semibold text-sm text-[var(--color-text)] leading-snug group-hover:text-primary-400 transition-colors">
                   {cert.title[locale]}
                 </p>
                 <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
@@ -76,7 +76,7 @@ export function CertificationCards({ locale }: CertificationCardsProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
-                  'inline-flex items-center gap-1 text-xs font-semibold text-primary-400 hover:text-primary-300 transition-colors',
+                  'inline-flex items-center gap-1 text-xs font-semibold text-primary-400 hover:text-primary-400 transition-colors',
                   isRTL && 'flex-row-reverse self-end',
                 )}
               >

@@ -30,7 +30,7 @@ export default async function ContactPage({ params }: Props) {
       value: 'malaakbalzoubi@gmail.com',
       href: 'mailto:malaakbalzoubi@gmail.com',
       // Neon Mint chip
-      chip: 'bg-primary-500/12 text-primary-300 border border-primary-500/30',
+      chip: 'bg-primary-500/12 text-primary-400 border border-primary-500/30',
       hoverGlow: 'hover:shadow-glow-mint',
     },
     {
@@ -39,7 +39,7 @@ export default async function ContactPage({ params }: Props) {
       value: 'linkedin.com/in/malaak-al-zoubi',
       href: 'https://www.linkedin.com/in/malaak-al-zoubi/',
       // Hot Pink chip
-      chip: 'bg-magenta-500/12 text-magenta-300 border border-magenta-500/30',
+      chip: 'bg-magenta-500/12 text-magenta-400 border border-magenta-500/30',
       hoverGlow: 'hover:shadow-glow-pink',
     },
     {
@@ -48,7 +48,7 @@ export default async function ContactPage({ params }: Props) {
       value: 'github.com/malaakb1',
       href: 'https://github.com/malaakb1',
       // Deep Purple chip
-      chip: 'bg-lavender-500/15 text-lavender-200 border border-lavender-500/40',
+      chip: 'bg-lavender-500/15 text-lavender-400 border border-lavender-500/40',
       hoverGlow: 'hover:shadow-glow-purple',
     },
   ];
@@ -120,13 +120,13 @@ export default async function ContactPage({ params }: Props) {
                   </div>
                   <div className="min-w-0">
                     <p className="text-sm font-bold text-[var(--color-text)]">{label}</p>
-                    <p className="text-sm text-[var(--color-text-muted)] group-hover:text-primary-300 transition-colors truncate">
+                    <p className="text-sm text-[var(--color-text-muted)] group-hover:text-primary-400 transition-colors truncate">
                       {value}
                     </p>
                   </div>
                   <ArrowUpRight
                     className={cn(
-                      'w-4 h-4 flex-shrink-0 text-[var(--color-text-muted)] opacity-0 group-hover:opacity-100 group-hover:text-primary-300 transition-all',
+                      'w-4 h-4 flex-shrink-0 text-[var(--color-text-muted)] opacity-0 group-hover:opacity-100 group-hover:text-primary-400 transition-all',
                       isRTL ? 'mr-auto' : 'ml-auto',
                     )}
                     aria-hidden="true"
@@ -173,7 +173,7 @@ export default async function ContactPage({ params }: Props) {
                     href="mailto:malaakbalzoubi@gmail.com"
                     className={cn(
                       'flex items-center justify-center gap-2 w-full py-3 px-6 rounded-xl text-sm font-semibold transition-all active:scale-95',
-                      'bg-primary-500 text-ink-950 hover:bg-primary-400 hover:shadow-glow-mint',
+                      'bg-primary-500 text-cream hover:bg-primary-400 hover:shadow-glow-mint',
                       isRTL && 'flex-row-reverse',
                     )}
                   >
@@ -187,7 +187,7 @@ export default async function ContactPage({ params }: Props) {
                     className={cn(
                       'flex items-center justify-center gap-2 w-full py-3 px-6 rounded-xl text-sm font-semibold transition-all',
                       'border border-[var(--color-border)] text-[var(--color-text)]',
-                      'hover:border-primary-400 hover:text-primary-300',
+                      'hover:border-primary-400 hover:text-primary-400',
                       isRTL && 'flex-row-reverse',
                     )}
                   >
@@ -202,14 +202,14 @@ export default async function ContactPage({ params }: Props) {
             <div
               className={cn(
                 'mt-6 flex items-start gap-3 p-4 rounded-xl',
-                'bg-primary-500/10 border border-primary-500/30 text-primary-300',
+                'bg-primary-500/10 border border-primary-500/30 text-primary-400',
                 isRTL && 'flex-row-reverse text-right',
               )}
             >
               <MessageSquare className="w-5 h-5 text-primary-400 flex-shrink-0 mt-0.5" aria-hidden="true" />
               <div>
-                <p className="text-sm font-semibold text-primary-300">{t('info.availability')}</p>
-                <p className="text-xs text-primary-300/70">{t('info.responseTime')}</p>
+                <p className="text-sm font-semibold text-primary-400">{t('info.availability')}</p>
+                <p className="text-xs text-primary-400/70">{t('info.responseTime')}</p>
               </div>
             </div>
           </div>

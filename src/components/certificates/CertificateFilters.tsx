@@ -66,7 +66,7 @@ export function CertificateFilters({ locale }: CertificateFiltersProps) {
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder={isRTL ? 'ابحث في الشهادات…' : 'Search certificates or skills…'}
           className={cn(
-            'w-full py-3 rounded-xl bg-white/[0.03] border border-[var(--color-border)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-shadow text-sm',
+            'w-full py-3 rounded-xl bg-[var(--surface)] border border-[var(--color-border)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-shadow text-sm',
             isRTL ? 'pr-11 pl-10' : 'pl-11 pr-10',
           )}
         />
@@ -93,8 +93,8 @@ export function CertificateFilters({ locale }: CertificateFiltersProps) {
             className={cn(
               'px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 border',
               activeCategory === key
-                ? 'bg-primary-500 text-ink-950 border-primary-500 shadow-glow-mint'
-                : 'bg-white/[0.03] text-[var(--color-text-muted)] border-[var(--color-border)] hover:border-primary-400/60 hover:text-[var(--color-text)]',
+                ? 'bg-primary-500 text-cream border-primary-500 shadow-glow-mint'
+                : 'bg-[var(--surface)] text-[var(--color-text-muted)] border-[var(--color-border)] hover:border-primary-400/60 hover:text-[var(--color-text)]',
             )}
           >
             {label[locale]}
@@ -155,7 +155,7 @@ export function CertificateFilters({ locale }: CertificateFiltersProps) {
                     <Award className="w-5 h-5" />
                   </div>
                   <div className={cn('flex-1 min-w-0', isRTL && 'text-right')}>
-                    <p className="font-semibold text-sm text-[var(--color-text)] leading-snug group-hover:text-primary-300 transition-colors">
+                    <p className="font-semibold text-sm text-[var(--color-text)] leading-snug group-hover:text-primary-400 transition-colors">
                       {cert.title[locale]}
                     </p>
                     <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
@@ -182,7 +182,7 @@ export function CertificateFilters({ locale }: CertificateFiltersProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                       className={cn(
-                        'inline-flex items-center gap-1 text-xs font-semibold text-primary-400 hover:text-primary-300 transition-colors',
+                        'inline-flex items-center gap-1 text-xs font-semibold text-primary-400 hover:text-primary-400 transition-colors',
                         isRTL && 'flex-row-reverse',
                       )}
                     >

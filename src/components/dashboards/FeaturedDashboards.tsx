@@ -52,7 +52,7 @@ export function FeaturedDashboards({ locale }: FeaturedDashboardsProps) {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink-950/70 via-transparent to-transparent" aria-hidden="true" />
                 {dashboard.liveUrl && (
-                  <span className={cn('absolute top-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary-500 text-ink-950', isRTL ? 'left-3' : 'right-3')}>
+                  <span className={cn('absolute top-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary-500 text-cream', isRTL ? 'left-3' : 'right-3')}>
                     <span className="w-1.5 h-1.5 rounded-full bg-ink-950 animate-pulse" />
                     {isRTL ? 'مباشر' : 'LIVE'}
                   </span>
@@ -60,7 +60,7 @@ export function FeaturedDashboards({ locale }: FeaturedDashboardsProps) {
               </div>
 
               <div className="flex-1 p-5 space-y-2.5">
-                <h3 className={cn('font-serif text-lg font-bold leading-snug text-[var(--color-text)] group-hover:text-primary-300 transition-colors', isRTL && 'text-right')}>
+                <h3 className={cn('font-serif text-lg font-bold leading-snug text-[var(--color-text)] group-hover:text-primary-400 transition-colors', isRTL && 'text-right')}>
                   {dashboard.title[locale]}
                 </h3>
                 <p className={cn('text-sm text-[var(--color-text-muted)] leading-relaxed line-clamp-2', isRTL && 'text-right')}>

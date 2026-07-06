@@ -1,14 +1,15 @@
 import type { Config } from 'tailwindcss';
 
 /**
- * ── Malaak Al Zoubi — "Cyber Feminine AI" design tokens ──────────────────────
+ * ── Malaak Al Zoubi — "Wine & Plum" identity (single dark theme) ─────────────
  * Palette:
- *   Neon Mint     #00E0BA  → `primary`  (main action, links, active, highlights)
- *   Deep Purple   #91008D  → `lavender` (gradients, secondary surfaces, glow)
- *   Hot Pink      #FF3483  → `magenta`  (hover glow, labels, emphasis)
- *   Electric Yellow #FFCF00 → `gold`    (limited accents, counters, badges)
- * Existing components reference `primary-*` / `lavender-*`; repointing those
- * scales flows the new identity everywhere without breaking class names.
+ *   Wine/Raspberry #853953 → `primary`  (main action, links, active, highlights)
+ *   Plum           #612D53 → `magenta`  (secondary accent / tags / gradients)
+ *   Mauve (derived)        → `lavender` (tertiary accent)
+ *   Dusty Rose (derived)   → `gold`     (counters / soft badges)
+ *   Light-gray #F3F4F4 → text · Charcoal-plum → background
+ * On the dark base, accent TEXT uses bright shades (300–400); accent FILLS use
+ * 500–600 with light `cream` text.
  */
 const config: Config = {
   darkMode: 'class',
@@ -20,87 +21,86 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // ── Neon Mint → primary action ──────────────────────────────────────
+        // ── Wine → primary ──────────────────────────────────────────────────
         primary: {
-          DEFAULT: '#00E0BA',
-          50:  '#E6FFFA',
-          100: '#C0FFF2',
-          200: '#87FCE6',
-          300: '#4DF4D7',
-          400: '#1EEBC8',
-          500: '#00E0BA',
-          600: '#00B89A',
-          700: '#048D78',
-          800: '#0A6C5D',
-          900: '#0C4B42',
+          DEFAULT: '#853953',
+          50:  '#F7EAEE',
+          100: '#ECCAD5',
+          200: '#DBA0B2',
+          300: '#C77E93',
+          400: '#B8536F',
+          500: '#A24460',
+          600: '#853953',
+          700: '#6E2F45',
+          800: '#522334',
+          900: '#371722',
         },
-        // ── Deep Purple → gradients / secondary ─────────────────────────────
-        lavender: {
-          DEFAULT: '#91008D',
-          50:  '#FBE9FA',
-          100: '#F5C9F3',
-          200: '#EA97E6',
-          300: '#DD63D8',
-          400: '#C633BF',
-          500: '#91008D',
-          600: '#7C0079',
-          700: '#640563',
-          800: '#4C0A4B',
-          900: '#360935',
-        },
-        // ── Hot Pink → hover glow / labels ──────────────────────────────────
+        // ── Plum → magenta (secondary) ──────────────────────────────────────
         magenta: {
-          DEFAULT: '#FF3483',
-          50:  '#FFE9F1',
-          100: '#FFCCDF',
-          200: '#FF99BF',
-          300: '#FF66A0',
-          400: '#FF4D90',
-          500: '#FF3483',
-          600: '#E01466',
-          700: '#B30B4F',
-          800: '#850739',
-          900: '#5C0526',
+          DEFAULT: '#612D53',
+          50:  '#F3E9F0',
+          100: '#E0C6D9',
+          200: '#C79BBB',
+          300: '#A96B96',
+          400: '#8E4E7C',
+          500: '#743F65',
+          600: '#612D53',
+          700: '#4E2443',
+          800: '#3A1B32',
+          900: '#271221',
         },
-        // ── Electric Yellow → limited accent / counters ─────────────────────
+        // ── Mauve → lavender (tertiary) ─────────────────────────────────────
+        lavender: {
+          DEFAULT: '#A673A0',
+          50:  '#F6EFF6',
+          100: '#E9D8E8',
+          200: '#D5B7D2',
+          300: '#BE93BA',
+          400: '#A673A0',
+          500: '#8E5A88',
+          600: '#74476F',
+          700: '#5B3757',
+          800: '#422840',
+          900: '#2C1A2B',
+        },
+        // ── Dusty Rose → gold (counters / soft badges) ──────────────────────
         gold: {
-          DEFAULT: '#FFCF00',
-          50:  '#FFFBE6',
-          100: '#FFF4B8',
-          200: '#FFEA7A',
-          300: '#FFDF3D',
-          400: '#FFD41F',
-          500: '#FFCF00',
-          600: '#D9AF00',
-          700: '#A88700',
-          800: '#7A6200',
-          900: '#4D3E00',
+          DEFAULT: '#D3757F',
+          50:  '#FCEFF1',
+          100: '#F6D9DC',
+          200: '#ECB7BD',
+          300: '#E0949D',
+          400: '#D3757F',
+          500: '#BC5B66',
+          600: '#9C4751',
+          700: '#7B383F',
+          800: '#59292F',
+          900: '#3A1B1F',
         },
-        // ── Cyber-dark neutrals ─────────────────────────────────────────────
+        // ── Charcoal-plum neutrals (overlays / thumbnails / button text) ─────
         ink: {
-          950: '#050507',
-          900: '#0B0610',
-          850: '#120B18',
-          800: '#1A1024',
-          700: '#241633',
-          600: '#332145',
-          500: '#463159',
+          950: '#1A161C',
+          900: '#221D26',
+          850: '#2A2430',
+          800: '#322A3A',
+          700: '#3E3448',
+          600: '#4C4057',
+          500: '#5F5069',
         },
-        // Soft neutral (used by toggles / muted chrome) — repurposed warm scale
         warm: {
-          50:  '#FFF8FB',
-          100: '#F1ECF4',
-          200: '#DAD2E2',
-          300: '#BEB4C8',
-          400: '#9A8DA8',
-          500: '#77697F',
-          600: '#574C60',
-          700: '#3D3446',
-          800: '#221A2E',
-          900: '#140D1C',
+          50:  '#F4F2F3',
+          100: '#E6E1E4',
+          200: '#CBC2C7',
+          300: '#AB9FA7',
+          400: '#877A84',
+          500: '#665A63',
+          600: '#4C424A',
+          700: '#372F36',
+          800: '#241E24',
+          900: '#161217',
         },
-        blush: '#FF3483',
-        cream: '#FFF8FB',
+        blush: '#853953',
+        cream: '#F3F4F4',
       },
       fontFamily: {
         serif:  ['var(--font-el-messiri)', 'El Messiri', 'sans-serif'],
@@ -176,26 +176,26 @@ const config: Config = {
       },
       backgroundImage: {
         'gradient-brand':
-          'linear-gradient(120deg, #00E0BA 0%, #FF3483 50%, #91008D 100%)',
+          'linear-gradient(120deg, #A24460 0%, #612D53 55%, #8E5A88 100%)',
         'gradient-mint-pink':
-          'linear-gradient(135deg, #00E0BA 0%, #FF3483 100%)',
+          'linear-gradient(135deg, #A24460 0%, #612D53 100%)',
         'gradient-pink-purple':
-          'linear-gradient(135deg, #FF3483 0%, #91008D 100%)',
+          'linear-gradient(135deg, #853953 0%, #8E5A88 100%)',
         'gradient-hero':
-          'radial-gradient(60% 60% at 15% 10%, rgba(145,0,141,0.35) 0%, transparent 60%), radial-gradient(55% 55% at 90% 20%, rgba(255,52,131,0.28) 0%, transparent 60%), radial-gradient(50% 50% at 70% 90%, rgba(0,224,186,0.22) 0%, transparent 60%)',
+          'radial-gradient(60% 60% at 15% 10%, rgba(133,57,83,0.24) 0%, transparent 60%), radial-gradient(55% 55% at 90% 20%, rgba(97,45,83,0.22) 0%, transparent 60%), radial-gradient(50% 50% at 70% 90%, rgba(166,115,160,0.16) 0%, transparent 60%)',
       },
       backgroundSize: {
         'grid': '44px 44px',
       },
       boxShadow: {
-        'soft':        '0 2px 24px 0 rgba(0,0,0,0.35)',
-        'card':        '0 6px 34px -8px rgba(0,0,0,0.6)',
-        'card-hover':  '0 14px 60px -12px rgba(255,52,131,0.35)',
-        'glow':        '0 0 40px -6px rgba(0,224,186,0.5)',
-        'glow-mint':   '0 0 42px -8px rgba(0,224,186,0.55)',
-        'glow-pink':   '0 0 42px -8px rgba(255,52,131,0.55)',
-        'glow-purple': '0 0 54px -10px rgba(145,0,141,0.6)',
-        'glow-gold':   '0 0 40px -10px rgba(255,207,0,0.5)',
+        'soft':        '0 2px 24px 0 rgba(0,0,0,0.4)',
+        'card':        '0 8px 30px -12px rgba(0,0,0,0.55)',
+        'card-hover':  '0 16px 50px -14px rgba(133,57,83,0.35)',
+        'glow':        '0 0 40px -6px rgba(133,57,83,0.5)',
+        'glow-mint':   '0 0 42px -8px rgba(166,115,160,0.42)',
+        'glow-pink':   '0 0 42px -8px rgba(133,57,83,0.5)',
+        'glow-purple': '0 0 50px -10px rgba(97,45,83,0.5)',
+        'glow-gold':   '0 0 40px -10px rgba(211,117,127,0.42)',
       },
     },
   },

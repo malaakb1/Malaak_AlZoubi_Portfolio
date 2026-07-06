@@ -49,7 +49,7 @@ export function Footer({ locale }: FooterProps) {
             <Link
               href={`/${locale}/contact`}
               className={cn(
-                'inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-semibold bg-primary-500 text-ink-950 hover:bg-primary-400 hover:shadow-glow-mint transition-all active:scale-95',
+                'inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-semibold bg-primary-500 text-cream hover:bg-primary-400 hover:shadow-glow-mint transition-all active:scale-95',
                 isRTL && 'flex-row-reverse',
               )}
             >
@@ -72,7 +72,7 @@ export function Footer({ locale }: FooterProps) {
       </div>
 
       {/* Lower bar */}
-      <div className="border-t border-[var(--color-border)] bg-white/[0.015]">
+      <div className="border-t border-[var(--color-border)] bg-[var(--surface)]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
           <div className={cn('grid grid-cols-1 md:grid-cols-3 gap-10', isRTL && 'text-right')}>
             {/* Brand */}
@@ -127,7 +127,7 @@ export function Footer({ locale }: FooterProps) {
                     target={href.startsWith('mailto') ? undefined : '_blank'}
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="w-10 h-10 flex items-center justify-center rounded-xl border border-[var(--color-border)] bg-white/[0.03] text-[var(--color-text-muted)] hover:text-primary-400 hover:border-primary-400/60 hover:-translate-y-0.5 transition-all duration-200"
+                    className="w-10 h-10 flex items-center justify-center rounded-xl border border-[var(--color-border)] bg-[var(--surface)] text-[var(--color-text-muted)] hover:text-primary-400 hover:border-primary-400/60 hover:-translate-y-0.5 transition-all duration-200"
                   >
                     <Icon className="w-4 h-4" />
                   </a>

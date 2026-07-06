@@ -12,13 +12,13 @@ interface ArchitectureDiagramProps {
 
 // Cyber palette — translucent accent-on-dark node styles.
 const nodeTypeStyles: Record<string, string> = {
-  input:   'bg-primary-500/12  border border-primary-500/30  text-primary-200',
-  process: 'bg-lavender-400/15 border border-lavender-400/35 text-lavender-200',
-  model:   'bg-magenta-500/12  border border-magenta-500/30  text-magenta-200',
-  storage: 'bg-gold-500/12     border border-gold-500/30     text-gold-200',
-  api:     'bg-primary-500/12  border border-primary-500/30  text-primary-200',
-  output:  'bg-magenta-500/12  border border-magenta-500/30  text-magenta-200',
-  ui:      'bg-lavender-400/15 border border-lavender-400/35 text-lavender-200',
+  input:   'bg-primary-500/12  border border-primary-500/30  text-primary-400',
+  process: 'bg-lavender-400/15 border border-lavender-400/35 text-lavender-400',
+  model:   'bg-magenta-500/12  border border-magenta-500/30  text-magenta-400',
+  storage: 'bg-gold-500/12     border border-gold-500/30     text-gold-400',
+  api:     'bg-primary-500/12  border border-primary-500/30  text-primary-400',
+  output:  'bg-magenta-500/12  border border-magenta-500/30  text-magenta-400',
+  ui:      'bg-lavender-400/15 border border-lavender-400/35 text-lavender-400',
 };
 
 const nodeTypeIcons: Record<string, string> = {

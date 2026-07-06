@@ -28,7 +28,7 @@ export function ToolIcon({ tool, size = 'md', showLabel = true, className }: Too
       <span
         className={cn(
           'inline-flex items-center rounded-lg font-mono font-semibold text-[11px] whitespace-nowrap px-2.5 py-1.5',
-          'border border-[var(--color-border)] bg-white/[0.03] backdrop-blur-sm',
+          'border border-[var(--color-border)] bg-[var(--surface)] backdrop-blur-sm',
           'text-[var(--color-text)] hover:border-primary-400/60 transition-colors duration-200',
           className,
         )}
@@ -45,7 +45,7 @@ export function ToolIcon({ tool, size = 'md', showLabel = true, className }: Too
       <div
         className={cn(
           'relative flex items-center justify-center rounded-xl p-2',
-          'border border-[var(--color-border)] bg-white/[0.03] backdrop-blur-sm',
+          'border border-[var(--color-border)] bg-[var(--surface)] backdrop-blur-sm',
           'transition-all duration-200 group-hover/tool:-translate-y-1 group-hover/tool:border-primary-400/60 group-hover/tool:shadow-glow-mint',
           box,
         )}

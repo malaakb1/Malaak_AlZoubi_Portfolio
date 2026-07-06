@@ -33,13 +33,16 @@ export function ProfileCard({ locale }: ProfileCardProps) {
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="relative card p-4 sm:p-5 text-center overflow-visible"
+      className="group relative card p-4 sm:p-5 text-center overflow-visible"
     >
-      {/* soft glow behind the card */}
-      <div className="absolute -inset-2 -z-10 rounded-[1.6rem] bg-gradient-brand opacity-[0.16] blur-2xl" aria-hidden="true" />
+      {/* soft wine glow behind the card */}
+      <div className="absolute -inset-2 -z-10 rounded-[1.7rem] bg-gradient-brand opacity-25 blur-2xl" aria-hidden="true" />
 
-      {/* dashed orbit decorations */}
-      <svg className="absolute -top-3 -right-2 w-24 h-24 text-gold-400/70 pointer-events-none" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+      {/* top accent line */}
+      <div className="absolute top-0 inset-x-6 h-[3px] rounded-b bg-gradient-to-r from-transparent via-primary-400 to-transparent" aria-hidden="true" />
+
+      {/* dashed orbit decoration */}
+      <svg className="absolute -top-3 -right-2 w-24 h-24 text-primary-300/45 pointer-events-none" viewBox="0 0 100 100" fill="none" aria-hidden="true">
         <path d="M6 58 A46 46 0 0 1 96 42" stroke="currentColor" strokeWidth="2.5" strokeDasharray="3 8" strokeLinecap="round" />
       </svg>
 
@@ -63,22 +66,22 @@ export function ProfileCard({ locale }: ProfileCardProps) {
         <motion.div
           animate={{ y: [0, -6, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full grid place-items-center bg-primary-500 text-ink-950 shadow-glow-mint ring-4 ring-[var(--color-card)]"
+          className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full grid place-items-center bg-primary-500 text-cream shadow-glow-pink ring-4 ring-[var(--color-card)]"
         >
           <Sparkles className="w-4 h-4" aria-hidden="true" />
         </motion.div>
       </div>
 
       {/* Name + role */}
-      <h1 className="mt-6 font-serif text-2xl sm:text-[1.6rem] font-bold leading-tight">
+      <h1 className="mt-6 font-serif text-2xl sm:text-[1.6rem] font-bold leading-tight text-[var(--color-text)]">
         {hero('name')}
       </h1>
-      <p className="mt-1.5 text-[11px] font-mono uppercase tracking-[0.25em] text-primary-400">
+      <p className="mt-1.5 text-[11px] font-mono uppercase tracking-[0.25em] text-primary-300">
         {hero('title')}
       </p>
 
       {/* Short bio */}
-      <p className={cn('mt-3.5 text-[13px] sm:text-sm text-[var(--color-text-muted)] leading-relaxed px-1')}>
+      <p className="mt-3.5 text-[13px] sm:text-sm text-[var(--color-text-muted)] leading-relaxed px-1">
         {about('subtitle')}
       </p>
 
@@ -91,7 +94,7 @@ export function ProfileCard({ locale }: ProfileCardProps) {
             target={href.startsWith('mailto') ? undefined : '_blank'}
             rel="noopener noreferrer"
             aria-label={label}
-            className="w-10 h-10 grid place-items-center rounded-xl border border-[var(--color-border)] bg-white/[0.03] text-[var(--color-text-muted)] hover:text-primary-400 hover:border-primary-400/60 hover:-translate-y-0.5 transition-all duration-200"
+            className="w-10 h-10 grid place-items-center rounded-xl border border-[var(--color-border)] bg-[var(--surface)] text-[var(--color-text-muted)] hover:text-cream hover:bg-primary-500 hover:border-primary-500 hover:-translate-y-0.5 transition-all duration-200"
           >
             <Icon className="w-4 h-4" />
           </a>
@@ -103,7 +106,7 @@ export function ProfileCard({ locale }: ProfileCardProps) {
         href="/cv/malaak-cv.pdf"
         download
         className={cn(
-          'mt-4 flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-sm font-semibold bg-primary-500 text-ink-950 hover:bg-primary-400 hover:shadow-glow-mint transition-all active:scale-[0.98]',
+          'mt-4 flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-sm font-semibold bg-primary-500 text-cream hover:bg-primary-400 hover:shadow-glow-pink transition-all active:scale-[0.98]',
           isRTL && 'flex-row-reverse',
         )}
       >

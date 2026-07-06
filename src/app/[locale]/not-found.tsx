@@ -48,7 +48,7 @@ export default function NotFound() {
           <Link
             href={`/${locale}`}
             className={cn(
-              'inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm bg-primary-500 text-ink-950 hover:bg-primary-400 hover:shadow-glow-mint transition-all active:scale-95',
+              'inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm bg-primary-500 text-cream hover:bg-primary-400 hover:shadow-glow-mint transition-all active:scale-95',
               isRTL && 'flex-row-reverse',
             )}
           >
@@ -58,7 +58,7 @@ export default function NotFound() {
           <Link
             href={`/${locale}/projects`}
             className={cn(
-              'group inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm border border-[var(--color-border)] text-[var(--color-text)] hover:border-primary-400 hover:text-primary-300 transition-all',
+              'group inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm border border-[var(--color-border)] text-[var(--color-text)] hover:border-primary-400 hover:text-primary-400 transition-all',
               isRTL && 'flex-row-reverse',
             )}
           >

@@ -20,9 +20,9 @@ const typeIcons = {
 
 /** Per-type dot accent (mint / magenta / gold) for the dark timeline. */
 const typeDot = {
-  work:      { bg: 'bg-primary-500/12', text: 'text-primary-300', ring: 'ring-primary-500/40', glow: 'shadow-glow-mint' },
-  volunteer: { bg: 'bg-magenta-500/12', text: 'text-magenta-300', ring: 'ring-magenta-500/40', glow: 'shadow-glow-pink' },
-  education: { bg: 'bg-gold-500/12',    text: 'text-gold-300',    ring: 'ring-gold-500/40',    glow: 'shadow-glow-gold' },
+  work:      { bg: 'bg-primary-500/12', text: 'text-primary-400', ring: 'ring-primary-500/40', glow: 'shadow-glow-mint' },
+  volunteer: { bg: 'bg-magenta-500/12', text: 'text-magenta-400', ring: 'ring-magenta-500/40', glow: 'shadow-glow-pink' },
+  education: { bg: 'bg-gold-500/12',    text: 'text-gold-400',    ring: 'ring-gold-500/40',    glow: 'shadow-glow-gold' },
 };
 
 export function Timeline({ locale, hideHeader = false }: TimelineProps) {

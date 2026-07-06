@@ -20,12 +20,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           size === 'lg' && 'px-7 py-3.5 text-base',
           // Mint primary — the main action colour
           variant === 'primary' &&
-            'bg-primary-500 text-ink-950 hover:bg-primary-400 shadow-[0_0_0_0_rgba(0,224,186,0)] hover:shadow-glow-mint',
+            'bg-primary-500 text-cream hover:bg-primary-400 shadow-[0_0_0_0_rgba(133,57,83,0)] hover:shadow-glow-mint',
           // Purple→pink secondary
           variant === 'secondary' &&
             'bg-gradient-pink-purple text-white hover:shadow-glow-pink',
           variant === 'ghost' &&
-            'bg-transparent text-[var(--color-text-muted)] hover:bg-white/5 hover:text-[var(--color-text)]',
+            'bg-transparent text-[var(--color-text-muted)] hover:bg-[var(--surface)] hover:text-[var(--color-text)]',
           variant === 'outline' &&
             'border border-[var(--color-border)] text-[var(--color-text)] hover:border-primary-400 hover:text-primary-400 hover:shadow-glow-mint',
           className,
